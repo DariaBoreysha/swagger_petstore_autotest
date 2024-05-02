@@ -9,10 +9,10 @@ public class CucumberHooks {
   }
 
   @Before
-  public static void before() {
+  public void before() {
   }
 
   @After
-  public static void after() {
+  public void after() {
   }
 }
