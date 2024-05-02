@@ -26,13 +26,14 @@ public class HttpClient {
     this.url = url;
   }
 
-  public String post(
+  public String get(
       HashMap<String, String> headers,
       HashMap<String, String> values
   ) {
     HttpGet request = composeGetRequest(headers, values);
     HttpResponse response;
-    try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+    CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+    try {
       response = httpClient.execute(request);
     } catch (IOException e) {
       throw new HttpClientException(e);
@@ -70,11 +71,11 @@ public class HttpClient {
 
   private HttpGet addParameters(
       HttpGet request,
-      HashMap<String, String> values
+      HashMap<String, String> parameters
   ) {
     List<NameValuePair> nameValuePairs = new ArrayList<>();
-    for (String key : values.keySet()) {
-      NameValuePair param = new BasicNameValuePair(key, values.get(key));
+    for (String key : parameters.keySet()) {
+      NameValuePair param = new BasicNameValuePair(key, parameters.get(key));
       nameValuePairs.add(param);
     }
     URI uri = null;

@@ -5,6 +5,12 @@ plugins {
 group 'io.swagger'
 version '1.0-SNAPSHOT'
 
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 repositories {
     mavenCentral()
 }
@@ -18,6 +24,7 @@ dependencies {
 }
 
 test{
+    systemProperty "file.encoding", "utf-8"
     useJUnitPlatform()
 }
 
@@ -35,8 +42,7 @@ task cucumber() {
             main = "io.cucumber.core.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = [
-                    '--plugin', 'json:out.json',
-                    '--glue', 'src/test/resources/features',
+                    '--glue', 'steps', 'src/test/resources/features'
             ]
         }
     }
