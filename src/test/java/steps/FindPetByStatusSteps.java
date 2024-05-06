@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class FindPetByStatusSteps {
 
-  ObjectMapper objectMapper = new ObjectMapper();
-
   @When("формируем GET запрос с одним валидным параметром {string} со значением {string}, отправляем на {string} и сохраняем ответ в Memory как {string}")
   public void sendGetRequest(
           String parameterName,
