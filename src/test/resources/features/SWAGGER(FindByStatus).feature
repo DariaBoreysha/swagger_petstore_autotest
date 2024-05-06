@@ -6,7 +6,7 @@ Feature: [SWAGGER-1] Поиск питомца по статусу
 
   @SWAGGER-1.1
   Scenario Outline: Передача одного значения параметра status
-    When формируем GET запрос с одним валидным параметром "status" со значением "<status>", отправляем на "https://petstore.swagger.io/v2/pet/findByStatus" и сохраняем ответ в Memory как "response_body"
+    When формируем GET запрос с валидным параметром "status" со значением "<status>", отправляем на "https://petstore.swagger.io/v2/pet/findByStatus" и сохраняем ответ в Memory как "response_body"
       | header | value            |
       | accept | application/json |
 #    Then получаем JSON из Memory переменной : "response_body" и проверяем, что структура тела JSON соответствует JSON schema : "get.json"
