@@ -23,7 +23,12 @@ public class HttpClient {
             String parameterName,
             String parameterValue
     ) {
-        HttpGet request = composeGetRequest(url, headers, parameterName, parameterValue);
+        HttpGet request = composeGetRequest(
+                url,
+                headers,
+                parameterName,
+                parameterValue
+        );
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response;
         try {

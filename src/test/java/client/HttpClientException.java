@@ -2,7 +2,7 @@ package client;
 
 public class HttpClientException extends RuntimeException {
 
-  public HttpClientException(Throwable cause) {
-    super(cause);
-  }
+    public HttpClientException(Throwable cause) {
+        super(cause);
+    }
 }

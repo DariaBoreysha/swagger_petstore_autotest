@@ -18,7 +18,10 @@ public class Memory {
             String key,
             String value
     ) {
-        map.put(key, value);
+        map.put(
+                key,
+                value
+        );
     }
 
     public static String get(
