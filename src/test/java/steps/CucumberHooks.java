@@ -2,17 +2,17 @@ package steps;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import stephelper.Memory;
 
 public class CucumberHooks {
 
-  public CucumberHooks() {
-  }
+    @Before
+    public void before() {
+        Memory.getInstance();
+    }
 
-  @Before
-  public void before() {
-  }
-
-  @After
-  public void after() {
-  }
+    @After
+    public void after() {
+        Memory.clear();
+    }
 }
