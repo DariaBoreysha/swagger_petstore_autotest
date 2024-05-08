@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class FindPetByStatusSteps {
 
-    @When("формируем GET запрос с валидным параметром {string} со значением {string}, отправляем на {string} и сохраняем ответ в Memory как {string}")
+    @When("формируем GET запрос с валидным параметром {string} со значением {string}, отправляем на {string} и сохраняем ответ как {string}")
     public void sendGetRequest(
             String parameterName,
             String parameterValue,
