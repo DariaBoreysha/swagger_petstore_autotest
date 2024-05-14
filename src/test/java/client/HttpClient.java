@@ -42,16 +42,6 @@ public class HttpClient {
         return response.getEntity();
     }
 
-    public String convertResponseToString(HttpEntity entity) {
-        String responseBody;
-        try {
-            responseBody = EntityUtils.toString(entity, "UTF-8");
-        } catch (IOException e) {
-            throw new HttpClientException(e);
-        }
-        return responseBody;
-    }
-
     public HttpGet composeGetRequest(
             String url,
             String parameterName,
@@ -59,13 +49,11 @@ public class HttpClient {
     ) {
         HttpGet request = new HttpGet(url);
         addParameter(request, parameterName, parameterValue);
-        addHeaders(request);
+        addDefaultHeaders(request);
         return request;
     }
 
-    private HttpGet addHeaders(
-            HttpGet request
-    ) {
+    private HttpGet addDefaultHeaders(HttpGet request) {
         request.addHeader("accept", "application/json");
         return request;
     }
@@ -77,17 +65,12 @@ public class HttpClient {
     ) {
         URI uri;
         try {
-            uri = new URIBuilder(request
-                    .getURI())
+            uri = new URIBuilder(request.getURI())
                     .addParameter(parameterName, parameterValue).build();
         } catch (URISyntaxException e) {
             throw new HttpClientException(e);
         }
         request.setURI(uri);
         return request;
-    }
-
-    private void assertAnswerStatusIsOk(int actualStatusCode, int expectedStatusCode) {
-        assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
     }
 }
