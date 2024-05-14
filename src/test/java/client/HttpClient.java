@@ -60,7 +60,6 @@ public class HttpClient {
                 parameterValue
         );
         addHeaders(request);
-        System.out.println(request);
         return request;
     }
 
@@ -82,7 +81,7 @@ public class HttpClient {
                     .addParameter(parameterName, parameterValue)
                     .build();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            throw new HttpClientException(e);
         }
         request.setURI(uri);
         return request;
