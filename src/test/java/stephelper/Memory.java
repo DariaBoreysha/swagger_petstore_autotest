@@ -6,7 +6,7 @@ import java.util.Map;
 public class Memory {
 
     private static Memory INSTANCE;
-    private static final Map<String, String> map = new HashMap<>();
+    private static final Map<String, Object> map = new HashMap<>();
 
     public static void getInstance() {
         if (INSTANCE == null) {
@@ -14,11 +14,11 @@ public class Memory {
         }
     }
 
-    public static void put(String key, String value) {
+    public static void put(String key, Object value) {
         map.put(key, value);
     }
 
-    public static String get(String key) {
+    public static Object get(String key) {
         return map.get(key);
     }
 

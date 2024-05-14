@@ -17,7 +17,7 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpClient {
 
-    public String sendGetRequest(
+    public HttpEntity sendGetRequest(
             String url,
             String parameterName,
             String parameterValue
@@ -34,14 +34,14 @@ public class HttpClient {
         } catch (IOException e) {
             throw new HttpClientException(e);
         }
-        assertAnswerStatusIsOk(response
-                .getStatusLine()
-                .getStatusCode()
-        );
         HttpEntity responseEntity = response.getEntity();
+        return responseEntity;
+    }
+
+    public String convertResponseToString(HttpEntity entity){
         String responseBody;
         try {
-            responseBody = EntityUtils.toString(responseEntity, "UTF-8");
+            responseBody = EntityUtils.toString(entity, "UTF-8");
         } catch (IOException e) {
             throw new HttpClientException(e);
         }
@@ -88,7 +88,7 @@ public class HttpClient {
         return request;
     }
 
-    private void assertAnswerStatusIsOk(int statusCode) {
-        assertThat(statusCode).isEqualTo(200);
+    private void assertAnswerStatusIsOk(int actualStatusCode, int expectedStatusCode) {
+        assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
     }
 }

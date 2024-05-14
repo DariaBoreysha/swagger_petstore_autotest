@@ -3,6 +3,7 @@ package steps;
 import client.HttpClient;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
+import org.apache.http.HttpEntity;
 import stephelper.Memory;
 
 import java.util.Map;
@@ -17,7 +18,7 @@ public class FindPetByStatusSteps {
             String memoryVariableName
     ) {
         HttpClient httpClient = new HttpClient();
-        String responseBody = httpClient.sendGetRequest(
+        HttpEntity responseBody = httpClient.sendGetRequest(
                 url,
                 parameterName,
                 parameterValue
