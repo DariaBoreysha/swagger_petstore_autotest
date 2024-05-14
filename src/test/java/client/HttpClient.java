@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -14,6 +15,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import report.Log;
 
 public class HttpClient {
 
@@ -27,6 +29,9 @@ public class HttpClient {
                 parameterName,
                 parameterValue
         );
+        Log.log("GET request: " + System.lineSeparator()
+                + "URL: " + request.getURI() + System.lineSeparator()
+                + "headers: " + Arrays.toString(request.getAllHeaders()));
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response;
         try {
@@ -34,11 +39,10 @@ public class HttpClient {
         } catch (IOException e) {
             throw new HttpClientException(e);
         }
-        HttpEntity responseEntity = response.getEntity();
-        return responseEntity;
+        return response.getEntity();
     }
 
-    public String convertResponseToString(HttpEntity entity){
+    public String convertResponseToString(HttpEntity entity) {
         String responseBody;
         try {
             responseBody = EntityUtils.toString(entity, "UTF-8");
@@ -54,11 +58,7 @@ public class HttpClient {
             String parameterValue
     ) {
         HttpGet request = new HttpGet(url);
-        addParameter(
-                request,
-                parameterName,
-                parameterValue
-        );
+        addParameter(request, parameterName, parameterValue);
         addHeaders(request);
         return request;
     }
@@ -75,11 +75,11 @@ public class HttpClient {
             String parameterName,
             String parameterValue
     ) {
-        URI uri = null;
+        URI uri;
         try {
-            uri = new URIBuilder(request.getURI())
-                    .addParameter(parameterName, parameterValue)
-                    .build();
+            uri = new URIBuilder(request
+                    .getURI())
+                    .addParameter(parameterName, parameterValue).build();
         } catch (URISyntaxException e) {
             throw new HttpClientException(e);
         }
