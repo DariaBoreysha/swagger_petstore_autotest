@@ -14,14 +14,11 @@ public class FindPetByStatusSteps {
             String parameterName,
             String parameterValue,
             String url,
-            String memoryVariableName,
-            DataTable table
+            String memoryVariableName
     ) {
         HttpClient httpClient = new HttpClient();
-        Map<String, String> headers = table.transpose().asMap();
         String responseBody = httpClient.sendGetRequest(
                 url,
-                headers,
                 parameterName,
                 parameterValue
         );

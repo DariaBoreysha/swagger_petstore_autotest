@@ -19,13 +19,11 @@ public class HttpClient {
 
     public String sendGetRequest(
             String url,
-            Map<String, String> headers,
             String parameterName,
             String parameterValue
     ) {
         HttpGet request = composeGetRequest(
                 url,
-                headers,
                 parameterName,
                 parameterValue
         );
@@ -52,7 +50,6 @@ public class HttpClient {
 
     public HttpGet composeGetRequest(
             String url,
-            Map<String, String> headers,
             String parameterName,
             String parameterValue
     ) {
@@ -62,18 +59,15 @@ public class HttpClient {
                 parameterName,
                 parameterValue
         );
-        addHeaders(request, headers);
+        addHeaders(request);
         System.out.println(request);
         return request;
     }
 
     private HttpGet addHeaders(
-            HttpGet request,
-            Map<String, String> headers
+            HttpGet request
     ) {
-        for (String key : headers.keySet()) {
-            request.addHeader(key, headers.get(key));
-        }
+        request.addHeader("accept", "application/json");
         return request;
     }
 
