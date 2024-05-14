@@ -2,8 +2,6 @@ package report;
 
 import io.cucumber.java.Scenario;
 
-import java.util.HashMap;
-
 public class Log {
 
     private static Scenario currentScenario;
