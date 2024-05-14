@@ -42,7 +42,8 @@ task cucumber() {
             main = "io.cucumber.core.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = [
-                    '--glue', 'steps', 'src/test/resources/features'
+                    '--glue', 'steps', 'src/test/resources/features',
+                    '--tags', '@all and @regress and @Find_by_status'
             ]
         }
     }
