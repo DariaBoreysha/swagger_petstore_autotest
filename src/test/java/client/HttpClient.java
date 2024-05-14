@@ -43,10 +43,7 @@ public class HttpClient {
         HttpEntity responseEntity = response.getEntity();
         String responseBody;
         try {
-            responseBody = EntityUtils.toString(
-                    responseEntity,
-                    "UTF-8"
-            );
+            responseBody = EntityUtils.toString(responseEntity, "UTF-8");
         } catch (IOException e) {
             throw new HttpClientException(e);
         }
@@ -65,10 +62,7 @@ public class HttpClient {
                 parameterName,
                 parameterValue
         );
-        addHeaders(
-                request,
-                headers
-        );
+        addHeaders(request, headers);
         System.out.println(request);
         return request;
     }
@@ -78,10 +72,7 @@ public class HttpClient {
             Map<String, String> headers
     ) {
         for (String key : headers.keySet()) {
-            request.addHeader(
-                    key,
-                    headers.get(key)
-            );
+            request.addHeader(key, headers.get(key));
         }
         return request;
     }
@@ -94,10 +85,7 @@ public class HttpClient {
         URI uri = null;
         try {
             uri = new URIBuilder(request.getURI())
-                    .addParameter(
-                            parameterName,
-                            parameterValue
-                    )
+                    .addParameter(parameterName, parameterValue)
                     .build();
         } catch (URISyntaxException e) {
             e.printStackTrace();

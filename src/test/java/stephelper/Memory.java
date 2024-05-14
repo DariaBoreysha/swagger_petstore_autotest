@@ -14,24 +14,15 @@ public class Memory {
         }
     }
 
-    public static void put(
-            String key,
-            String value
-    ) {
-        map.put(
-                key,
-                value
-        );
+    public static void put(String key, String value) {
+        map.put(key, value);
     }
 
-    public static String get(
-            String key
-    ) {
+    public static String get(String key) {
         return map.get(key);
     }
 
     public static void clear() {
-
         map.clear();
     }
 }

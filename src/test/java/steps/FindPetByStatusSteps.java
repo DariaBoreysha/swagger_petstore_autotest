@@ -25,9 +25,6 @@ public class FindPetByStatusSteps {
                 parameterName,
                 parameterValue
         );
-        Memory.put(
-                memoryVariableName,
-                responseBody
-        );
+        Memory.put(memoryVariableName, responseBody);
     }
 }
