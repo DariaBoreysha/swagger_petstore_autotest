@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number",
+        "maximum": 9223372036854775807
+      },
+      "category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "maximum": 9223372036854775807
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "photoUrls": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "maximum": 9223372036854775807
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+          ]
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": ["available", "pending", "sold"]
+      }
+    },
+    "required": [
+      "name",
+      "photoUrls"
+    ]
+  }
+}

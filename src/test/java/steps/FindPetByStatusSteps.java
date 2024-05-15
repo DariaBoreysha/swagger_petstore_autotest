@@ -1,12 +1,10 @@
 package steps;
 
 import client.HttpClient;
-import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpEntity;
 import stephelper.Memory;
-
-import java.util.Map;
 
 public class FindPetByStatusSteps {
 
@@ -18,11 +16,23 @@ public class FindPetByStatusSteps {
             String memoryVariableName
     ) {
         HttpClient httpClient = new HttpClient();
-        HttpEntity responseBody = httpClient.sendGetRequest(
-                url,
-                parameterName,
-                parameterValue
-        );
+        HttpEntity responseBody = httpClient.sendGetRequest(url, parameterName, parameterValue);
         Memory.put(memoryVariableName, responseBody);
+    }
+
+    @And("извлекаем ответ из Memory переменной : {string} и проверяем, что структура тела JSON соответствует JSON schema : {string}")
+    public void checkResponseAgainstJsonSchema(
+            String responseVariableName,
+            String jsonSchemaFileName
+    ) {
+
+    }
+
+    @And("парсим JSON из Memory переменной : {string} на POJO классы и проверяем, что значение поля status соответствует значению {string} из запроса")
+    public void checkStatusFieldValuesInResponseBody(
+            String responseVariableName,
+            String expectedStatusValue
+    ) {
+
     }
 }
