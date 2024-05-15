@@ -1,4 +1,4 @@
-package client;
+package exceptions;
 
 public class HttpClientException extends RuntimeException {
 

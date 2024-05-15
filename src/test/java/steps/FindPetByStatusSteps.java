@@ -4,7 +4,9 @@ import client.HttpClient;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import stephelper.Memory;
+import utils.FileUtil;
 
 public class FindPetByStatusSteps {
 
@@ -25,7 +27,8 @@ public class FindPetByStatusSteps {
             String responseVariableName,
             String jsonSchemaFileName
     ) {
-
+        HttpResponse response = (HttpResponse) Memory.get(responseVariableName);
+        String jsonBody = FileUtil.convertJsonEntityToString(response);
     }
 
     @And("парсим JSON из Memory переменной : {string} на POJO классы и проверяем, что значение поля status соответствует значению {string} из запроса")
