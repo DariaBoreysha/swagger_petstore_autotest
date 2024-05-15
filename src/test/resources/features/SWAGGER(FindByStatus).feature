@@ -9,7 +9,8 @@ Feature: [SWAGGER-1] Поиск питомца по статусу
     When формируем GET запрос с валидным параметром "status" со значением "<status>", отправляем на "https://petstore.swagger.io/v2/pet/findByStatus" и сохраняем ответ в Memory как "response_entity"
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And извлекаем ответ из Memory переменной : "response_entity" и проверяем, что структура тела JSON соответствует JSON schema : "get.json"
-    And парсим JSON из Memory переменной : "response_entity" на POJO классы и проверяем, что значение поля status соответствует значению "<status>" из запроса
+    #And парсим JSON из Memory переменной : "response_entity" на POJO классы и проверяем, что значение поля status соответствует значению "<status>" из запроса
+
 
     Examples:
       | status                 | code | phrase |

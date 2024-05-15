@@ -29,6 +29,7 @@ public class FindPetByStatusSteps {
     ) {
         HttpResponse response = (HttpResponse) Memory.get(responseVariableName);
         String jsonBody = FileUtil.convertJsonEntityToString(response);
+
     }
 
     @And("парсим JSON из Memory переменной : {string} на POJO классы и проверяем, что значение поля status соответствует значению {string} из запроса")
