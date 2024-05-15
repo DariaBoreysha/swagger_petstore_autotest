@@ -18,7 +18,7 @@ import report.Log;
 
 public class HttpClient {
 
-    public HttpEntity sendGetRequest(
+    public HttpResponse sendGetRequest(
             String url,
             String parameterName,
             String parameterValue
@@ -38,7 +38,7 @@ public class HttpClient {
         } catch (IOException e) {
             throw new HttpClientException(e);
         }
-        return response.getEntity();
+        return response;
     }
 
     public HttpGet composeGetRequest(
