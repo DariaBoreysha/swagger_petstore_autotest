@@ -21,7 +21,6 @@ public class FindPetByStatusSteps {
         HttpResponse response = httpClient.sendGetRequest(url, parameterName, parameterValue);
         Memory.put(memoryVariableName, response);
     }
-
     @And("извлекаем ответ из Memory переменной : {string} и проверяем, что структура тела JSON соответствует JSON schema : {string}")
     public void checkResponseAgainstJsonSchema(
             String responseVariableName,

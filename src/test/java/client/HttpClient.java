@@ -1,20 +1,18 @@
 package client;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Arrays;
-
 import exceptions.HttpClientException;
-import org.apache.http.HttpEntity;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import report.Log;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Arrays;
 
 public class HttpClient {
 
@@ -28,9 +26,7 @@ public class HttpClient {
                 parameterName,
                 parameterValue
         );
-        Log.log("GET request: " + System.lineSeparator()
-                + "URL: " + request.getURI() + System.lineSeparator()
-                + "headers: " + Arrays.toString(request.getAllHeaders()));
+        logGetRequest(request.getURI(), request.getAllHeaders());
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response;
         try {
@@ -71,5 +67,12 @@ public class HttpClient {
         }
         request.setURI(uri);
         return request;
+    }
+
+    private static void logGetRequest(URI uri, Header[] headers) {
+        Log.log("GET request: " + System.lineSeparator()
+                + "URL: " + uri + System.lineSeparator()
+                + "headers: " + Arrays.toString(headers)
+        );
     }
 }
