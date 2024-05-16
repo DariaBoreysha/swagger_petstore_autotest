@@ -1,6 +1,5 @@
 package client;
 
-import exceptions.AtFileUtilException;
 import exceptions.AtHttpClientException;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -9,10 +8,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import report.Log;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -79,15 +78,15 @@ public class HttpClient {
         );
     }
 
-    public String convertHttpEntityToString(HttpResponse response) {
-        HttpEntity jsonEntity = extractHttpEntityFromResponse(response);
-        String jsonBody;
+    public static InputStream extractHttpEntityContent(HttpResponse response){
+        HttpEntity entity = extractHttpEntityFromResponse(response);
+        InputStream entityContentStream;
         try {
-            jsonBody = EntityUtils.toString(jsonEntity, "UTF-8");
+            entityContentStream = entity.getContent();
         } catch (IOException e) {
-            throw new AtFileUtilException(e);
+            throw new AtHttpClientException(e);
         }
-        return jsonBody;
+        return entityContentStream;
     }
 
     private static HttpEntity extractHttpEntityFromResponse(HttpResponse response){

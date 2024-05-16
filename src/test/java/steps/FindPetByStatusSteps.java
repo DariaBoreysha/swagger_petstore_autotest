@@ -25,8 +25,7 @@ public class FindPetByStatusSteps extends BaseSteps {
             String jsonSchemaFileName
     ) {
         HttpResponse response = Memory.asHttpResponse(responseVariableName);
-        String jsonBody = httpClient.convertHttpEntityToString(response);
         JsonSchemaValidator schemaValidator = new JsonSchemaValidator();
-        schemaValidator.isJsonValid(jsonBody, jsonSchemaFileName);
+        schemaValidator.isJsonValid(response, jsonSchemaFileName);
     }
 }
