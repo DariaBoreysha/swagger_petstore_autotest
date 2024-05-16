@@ -30,7 +30,9 @@ public class JsonSchemaValidator {
 
     private JsonSchema createJsonSchema(String jsonSchemaFileName) {
         JsonSchema schema;
-        try (InputStream schemaStream = new FileInputStream(SCHEMA_FOLDER + jsonSchemaFileName)) {
+        try (
+                InputStream schemaStream = new FileInputStream(SCHEMA_FOLDER + jsonSchemaFileName)
+        ) {
             JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7);
             schema = schemaFactory.getSchema(schemaStream);
         } catch (IOException e) {
