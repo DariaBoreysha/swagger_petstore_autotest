@@ -2,9 +2,8 @@ package steps;
 
 import io.cucumber.java.en.Then;
 import org.apache.http.HttpResponse;
+import org.assertj.core.api.SoftAssertions;
 import stephelper.Memory;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommonSteps {
 
@@ -17,7 +16,9 @@ public class CommonSteps {
         HttpResponse response = Memory.asHttpResponse(responseVariableName);
         int actualStatusCode = response.getStatusLine().getStatusCode();
         String actualReasonPhrase = response.getStatusLine().getReasonPhrase();
-        assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
-        assertThat(actualReasonPhrase).isEqualTo(expectedReasonPhrase);
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
+        softly.assertThat(actualReasonPhrase).isEqualTo(expectedReasonPhrase);
+        softly.assertAll();
     }
 }
