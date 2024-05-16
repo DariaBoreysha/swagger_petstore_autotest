@@ -7,7 +7,7 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
-import exceptions.FileUtilException;
+import exceptions.AtJsonSchemaValidatorException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class JsonSchemaValidator {
             JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7);
             schema = schemaFactory.getSchema(schemaStream);
         } catch (IOException e) {
-            throw new FileUtilException(e);
+            throw new AtJsonSchemaValidatorException(e);
         }
         return schema;
     }

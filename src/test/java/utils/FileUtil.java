@@ -1,6 +1,6 @@
 package utils;
 
-import exceptions.FileUtilException;
+import exceptions.AtFileUtilException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -15,7 +15,7 @@ public class FileUtil {
         try {
             jsonBody = EntityUtils.toString(jsonEntity, "UTF-8");
         } catch (IOException e) {
-            throw new FileUtilException(e);
+            throw new AtFileUtilException(e);
         }
         return jsonBody;
     }

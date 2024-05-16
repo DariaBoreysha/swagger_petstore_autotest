@@ -1,6 +1,6 @@
 package client;
 
-import exceptions.HttpClientException;
+import exceptions.AtHttpClientException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -32,7 +32,7 @@ public class HttpClient {
         try {
             response = httpClient.execute(request);
         } catch (IOException e) {
-            throw new HttpClientException(e);
+            throw new AtHttpClientException(e);
         }
         return response;
     }
@@ -63,7 +63,7 @@ public class HttpClient {
             uri = new URIBuilder(request.getURI())
                     .addParameter(parameterName, parameterValue).build();
         } catch (URISyntaxException e) {
-            throw new HttpClientException(e);
+            throw new AtHttpClientException(e);
         }
         request.setURI(uri);
         return request;
