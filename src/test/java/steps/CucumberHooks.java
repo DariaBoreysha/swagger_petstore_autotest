@@ -1,5 +1,6 @@
 package steps;
 
+import client.HttpClient;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -12,6 +13,7 @@ public class CucumberHooks {
     public void before(Scenario scenario) {
         Memory.getInstance();
         Log.setScenario(scenario);
+        BaseSteps.httpClient = new HttpClient();
     }
 
     @After

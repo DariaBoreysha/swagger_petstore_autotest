@@ -1,5 +1,7 @@
 package stephelper;
 
+import org.apache.http.HttpResponse;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +20,11 @@ public class Memory {
         map.put(key, value);
     }
 
-    public static Object get(String key) {
-        return map.get(key);
-    }
-
     public static void clear() {
         map.clear();
+    }
+
+    public static HttpResponse asHttpResponse(String key){
+        return (HttpResponse) map.get(key);
     }
 }

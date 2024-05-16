@@ -1,13 +1,14 @@
 package utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import client.HttpClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
-import exceptions.FileUtilException;
+import exceptions.AtJsonSchemaValidatorException;
+import org.apache.http.HttpResponse;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonSchemaValidator {
 
-    public void isJsonValid(String jsonBody, String jsonSchemaFileName) {
+    public void isJsonValid(HttpResponse response, String jsonSchemaFileName) {
         JsonSchema jsonSchema = createJsonSchema(jsonSchemaFileName);
-        JsonNode jsonNode = convertStringToJsonNode(jsonBody);
+        JsonNode jsonNode = convertHttpResponseToJsonNode(response);
         Set<ValidationMessage> validationResult = jsonSchema.validate(jsonNode);
         if (!validationResult.isEmpty()) {
             fail(getMessagesOnFailedValidation(validationResult));
@@ -36,20 +37,21 @@ public class JsonSchemaValidator {
             JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7);
             schema = schemaFactory.getSchema(schemaStream);
         } catch (IOException e) {
-            throw new FileUtilException(e);
+            throw new AtJsonSchemaValidatorException(e);
         }
         return schema;
     }
 
-    private JsonNode convertStringToJsonNode(String jsonBody) {
+    private JsonNode convertHttpResponseToJsonNode(HttpResponse response) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode json = null;
+        InputStream entityContent = HttpClient.extractHttpEntityContent(response);
+        JsonNode jsonNode;
         try {
-            json = objectMapper.readTree(jsonBody);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            jsonNode = objectMapper.readValue(entityContent, JsonNode.class);
+        } catch (IOException e) {
+            throw new AtJsonSchemaValidatorException(e);
         }
-        return json;
+        return jsonNode;
     }
 
     private String getMessagesOnFailedValidation(Set<ValidationMessage> validationResult) {

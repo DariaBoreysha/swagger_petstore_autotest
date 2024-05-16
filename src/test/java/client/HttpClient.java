@@ -1,7 +1,8 @@
 package client;
 
-import exceptions.HttpClientException;
+import exceptions.AtHttpClientException;
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -10,6 +11,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import report.Log;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -32,7 +34,7 @@ public class HttpClient {
         try {
             response = httpClient.execute(request);
         } catch (IOException e) {
-            throw new HttpClientException(e);
+            throw new AtHttpClientException(e);
         }
         return response;
     }
@@ -63,7 +65,7 @@ public class HttpClient {
             uri = new URIBuilder(request.getURI())
                     .addParameter(parameterName, parameterValue).build();
         } catch (URISyntaxException e) {
-            throw new HttpClientException(e);
+            throw new AtHttpClientException(e);
         }
         request.setURI(uri);
         return request;
@@ -74,5 +76,20 @@ public class HttpClient {
                 + "URL: " + uri + System.lineSeparator()
                 + "headers: " + Arrays.toString(headers)
         );
+    }
+
+    public static InputStream extractHttpEntityContent(HttpResponse response){
+        HttpEntity entity = extractHttpEntityFromResponse(response);
+        InputStream entityContentStream;
+        try {
+            entityContentStream = entity.getContent();
+        } catch (IOException e) {
+            throw new AtHttpClientException(e);
+        }
+        return entityContentStream;
+    }
+
+    private static HttpEntity extractHttpEntityFromResponse(HttpResponse response){
+        return response.getEntity();
     }
 }
