@@ -1,12 +1,12 @@
 package steps;
 
 import client.HttpClient;
-import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
-import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import stephelper.Memory;
-
-import java.util.Map;
+import utils.FileUtil;
+import utils.JsonSchemaValidator;
 
 public class FindPetByStatusSteps {
 
@@ -18,11 +18,18 @@ public class FindPetByStatusSteps {
             String memoryVariableName
     ) {
         HttpClient httpClient = new HttpClient();
-        HttpEntity responseBody = httpClient.sendGetRequest(
-                url,
-                parameterName,
-                parameterValue
-        );
-        Memory.put(memoryVariableName, responseBody);
+        HttpResponse response = httpClient.sendGetRequest(url, parameterName, parameterValue);
+        Memory.put(memoryVariableName, response);
+    }
+
+    @And("извлекаем ответ из Memory переменной : {string} и проверяем, что структура тела JSON соответствует JSON schema : {string}")
+    public void checkResponseAgainstJsonSchema(
+            String responseVariableName,
+            String jsonSchemaFileName
+    ) {
+        HttpResponse response = (HttpResponse) Memory.get(responseVariableName);
+        String jsonBody = FileUtil.convertJsonEntityToString(response);
+        JsonSchemaValidator schemaValidator = new JsonSchemaValidator();
+        schemaValidator.isJsonValid(jsonBody, jsonSchemaFileName);
     }
 }
