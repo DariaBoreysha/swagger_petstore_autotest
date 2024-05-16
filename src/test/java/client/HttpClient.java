@@ -1,12 +1,15 @@
 package client;
 
+import exceptions.AtFileUtilException;
 import exceptions.AtHttpClientException;
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import report.Log;
 
 import java.io.IOException;
@@ -74,5 +77,20 @@ public class HttpClient {
                 + "URL: " + uri + System.lineSeparator()
                 + "headers: " + Arrays.toString(headers)
         );
+    }
+
+    public String convertHttpEntityToString(HttpResponse response) {
+        HttpEntity jsonEntity = extractHttpEntityFromResponse(response);
+        String jsonBody;
+        try {
+            jsonBody = EntityUtils.toString(jsonEntity, "UTF-8");
+        } catch (IOException e) {
+            throw new AtFileUtilException(e);
+        }
+        return jsonBody;
+    }
+
+    private static HttpEntity extractHttpEntityFromResponse(HttpResponse response){
+        return response.getEntity();
     }
 }

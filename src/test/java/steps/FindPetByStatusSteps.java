@@ -4,10 +4,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpResponse;
 import stephelper.Memory;
-import utils.FileUtil;
 import utils.JsonSchemaValidator;
 
-public class FindPetByStatusSteps extends BaseSteps{
+public class FindPetByStatusSteps extends BaseSteps {
 
     @When("формируем GET запрос с валидным параметром {string} со значением {string}, отправляем на {string} и сохраняем ответ в Memory как {string}")
     public void sendGetRequest(
@@ -26,7 +25,7 @@ public class FindPetByStatusSteps extends BaseSteps{
             String jsonSchemaFileName
     ) {
         HttpResponse response = Memory.asHttpResponse(responseVariableName);
-        String jsonBody = FileUtil.convertJsonEntityToString(response);
+        String jsonBody = httpClient.convertHttpEntityToString(response);
         JsonSchemaValidator schemaValidator = new JsonSchemaValidator();
         schemaValidator.isJsonValid(jsonBody, jsonSchemaFileName);
     }
