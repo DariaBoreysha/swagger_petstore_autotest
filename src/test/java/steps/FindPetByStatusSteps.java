@@ -27,7 +27,7 @@ public class FindPetByStatusSteps {
             String responseVariableName,
             String jsonSchemaFileName
     ) {
-        HttpResponse response = (HttpResponse) Memory.get(responseVariableName);
+        HttpResponse response = Memory.asHttpResponse(responseVariableName);
         String jsonBody = FileUtil.convertJsonEntityToString(response);
         JsonSchemaValidator schemaValidator = new JsonSchemaValidator();
         schemaValidator.isJsonValid(jsonBody, jsonSchemaFileName);

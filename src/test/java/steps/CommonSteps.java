@@ -6,7 +6,7 @@ import stephelper.Memory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BaseSteps {
+public class CommonSteps {
 
     @Then("извлекаем ответ из Memory переменной : {string} и проверяем соответствие статус кода и поясняющей фразы значениям {int}, {string}")
     public void checkStatusCodeAndReasonPhraseAreCorrect(
@@ -14,7 +14,7 @@ public class BaseSteps {
             int expectedStatusCode,
             String expectedReasonPhrase
     ) {
-        HttpResponse response = (HttpResponse) Memory.get(responseVariableName);
+        HttpResponse response = Memory.asHttpResponse(responseVariableName);
         int actualStatusCode = response.getStatusLine().getStatusCode();
         String actualReasonPhrase = response.getStatusLine().getReasonPhrase();
         assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
