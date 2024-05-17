@@ -41,18 +41,6 @@ public class JsonSchemaValidator {
         return schema;
     }
 
-    public static JsonNode convertHttpResponseToJsonNode(HttpResponse response) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        InputStream entityContent = HttpClient.extractHttpEntityContent(response);
-        JsonNode jsonNode;
-        try {
-            jsonNode = objectMapper.readValue(entityContent, JsonNode.class);
-        } catch (IOException e) {
-            throw new AtJsonSchemaValidatorException(e);
-        }
-        return jsonNode;
-    }
-
     private String getMessagesOnFailedValidation(Set<ValidationMessage> validationResult) {
         StringBuilder fullErrorMessage = new StringBuilder(System.lineSeparator());
         for (ValidationMessage vm : validationResult) {

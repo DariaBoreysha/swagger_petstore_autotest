@@ -78,7 +78,7 @@ public class HttpClient {
         );
     }
 
-    public static InputStream extractHttpEntityContent(HttpResponse response){
+    public static InputStream extractHttpEntityContent(HttpResponse response) {
         HttpEntity entity = extractHttpEntityFromResponse(response);
         InputStream entityContentStream;
         try {
@@ -89,7 +89,7 @@ public class HttpClient {
         return entityContentStream;
     }
 
-    private static HttpEntity extractHttpEntityFromResponse(HttpResponse response){
+    private static HttpEntity extractHttpEntityFromResponse(HttpResponse response) {
         return response.getEntity();
     }
 }
