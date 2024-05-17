@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonSchemaValidator {
 
-    public void validateJson(JsonNode jsonBody, String jsonSchemaFileName) {
+    public void validate(JsonNode jsonBody, String jsonSchemaFileName) {
         JsonSchema jsonSchema = createJsonSchema(jsonSchemaFileName);
         Set<ValidationMessage> validationResult = jsonSchema.validate(jsonBody);
         if (!validationResult.isEmpty()) {

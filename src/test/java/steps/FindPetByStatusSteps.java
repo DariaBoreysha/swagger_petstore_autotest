@@ -28,7 +28,7 @@ public class FindPetByStatusSteps extends BaseSteps {
     ) {
         JsonNode jsonBody = Memory.asJsonNode(jsonNodeVariableName);
         JsonSchemaValidator schemaValidator = new JsonSchemaValidator();
-        schemaValidator.validateJson(jsonBody, jsonSchemaFileName);
+        schemaValidator.validate(jsonBody, jsonSchemaFileName);
     }
 
     @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что значение поля status соответствует значению {string} запроса")
