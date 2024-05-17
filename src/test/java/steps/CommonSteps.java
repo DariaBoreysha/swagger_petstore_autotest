@@ -1,5 +1,6 @@
 package steps;
 
+import assertions.PetstoreAssertion;
 import io.cucumber.java.en.Then;
 import org.apache.http.HttpResponse;
 import org.assertj.core.api.SoftAssertions;

@@ -20,10 +20,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonSchemaValidator {
 
-    public void isJsonValid(HttpResponse response, String jsonSchemaFileName) {
+    public void isJsonValid(JsonNode jsonBody, String jsonSchemaFileName) {
         JsonSchema jsonSchema = createJsonSchema(jsonSchemaFileName);
-        JsonNode jsonNode = convertHttpResponseToJsonNode(response);
-        Set<ValidationMessage> validationResult = jsonSchema.validate(jsonNode);
+        Set<ValidationMessage> validationResult = jsonSchema.validate(jsonBody);
         if (!validationResult.isEmpty()) {
             fail(getMessagesOnFailedValidation(validationResult));
         }
@@ -42,7 +41,7 @@ public class JsonSchemaValidator {
         return schema;
     }
 
-    private JsonNode convertHttpResponseToJsonNode(HttpResponse response) {
+    public static JsonNode convertHttpResponseToJsonNode(HttpResponse response) {
         ObjectMapper objectMapper = new ObjectMapper();
         InputStream entityContent = HttpClient.extractHttpEntityContent(response);
         JsonNode jsonNode;
