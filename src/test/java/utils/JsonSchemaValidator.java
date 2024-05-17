@@ -1,14 +1,11 @@
 package utils;
 
-import client.HttpClient;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
 import exceptions.AtJsonSchemaValidatorException;
-import org.apache.http.HttpResponse;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonSchemaValidator {
 
-    public void isJsonValid(JsonNode jsonBody, String jsonSchemaFileName) {
+    public void validateJson(JsonNode jsonBody, String jsonSchemaFileName) {
         JsonSchema jsonSchema = createJsonSchema(jsonSchemaFileName);
         Set<ValidationMessage> validationResult = jsonSchema.validate(jsonBody);
         if (!validationResult.isEmpty()) {
