@@ -1,10 +1,14 @@
 package steps;
 
 import assertions.PetstoreAssertion;
+import com.fasterxml.jackson.databind.JsonNode;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.apache.http.HttpResponse;
 import org.assertj.core.api.SoftAssertions;
 import stephelper.Memory;
+import utils.HttpUtil;
+import utils.JsonSchemaValidator;
 
 public class CommonSteps {
 
@@ -21,5 +25,15 @@ public class CommonSteps {
         softly.assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
         softly.assertThat(actualReasonPhrase).isEqualTo(expectedReasonPhrase);
         softly.assertAll();
+    }
+
+    @And("конвертируем ответ из Memory: {string} в JsonNode и сохраняем как {string}")
+    public void convertResponseToJsonNode(
+            String responseVariableName,
+            String jsonNodeVariableName
+    ) {
+        HttpResponse response = Memory.asHttpResponse(responseVariableName);
+        JsonNode responseJsonBody = HttpUtil.convertHttpResponseToJsonNode(response);
+        Memory.put(jsonNodeVariableName, responseJsonBody);
     }
 }

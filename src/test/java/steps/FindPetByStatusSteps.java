@@ -31,14 +31,12 @@ public class FindPetByStatusSteps extends BaseSteps {
         schemaValidator.isJsonValid(jsonBody, jsonSchemaFileName);
     }
 
-    @And("извлекаем ответ из Memory переменной : {string} и проверяем, что значение поля status соответствует значению {string} запроса, сохраняем JsonNode в Memory как {string}")
+    @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что значение поля status соответствует значению {string} запроса")
     public void checkingStatusCorrectnessInServerResponse(
-            String responseVariableName,
-            String expectedStatusValue,
-            String jsonNodeVariableName
+            String jsonNodeVariableName,
+            String expectedStatusValue
     ) {
-        HttpResponse response = Memory.asHttpResponse(responseVariableName);
-        JsonNode responseJsonBody = JsonSchemaValidator.convertHttpResponseToJsonNode(response);
+        JsonNode responseJsonBody = Memory.asJsonNode(jsonNodeVariableName);
         String[] fieldExpectedValues = expectedStatusValue.split(",");
         PetstoreAssertion.assertBodyStatusFieldValueIsCorrect(responseJsonBody, fieldExpectedValues);
         Memory.put(jsonNodeVariableName, responseJsonBody);
