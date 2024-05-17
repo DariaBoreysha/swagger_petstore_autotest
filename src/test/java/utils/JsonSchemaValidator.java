@@ -1,14 +1,11 @@
 package utils;
 
-import client.HttpClient;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
 import exceptions.AtJsonSchemaValidatorException;
-import org.apache.http.HttpResponse;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,10 +17,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonSchemaValidator {
 
-    public void isJsonValid(HttpResponse response, String jsonSchemaFileName) {
+    public void validate(JsonNode jsonBody, String jsonSchemaFileName) {
         JsonSchema jsonSchema = createJsonSchema(jsonSchemaFileName);
-        JsonNode jsonNode = convertHttpResponseToJsonNode(response);
-        Set<ValidationMessage> validationResult = jsonSchema.validate(jsonNode);
+        Set<ValidationMessage> validationResult = jsonSchema.validate(jsonBody);
         if (!validationResult.isEmpty()) {
             fail(getMessagesOnFailedValidation(validationResult));
         }
@@ -40,18 +36,6 @@ public class JsonSchemaValidator {
             throw new AtJsonSchemaValidatorException(e);
         }
         return schema;
-    }
-
-    private JsonNode convertHttpResponseToJsonNode(HttpResponse response) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        InputStream entityContent = HttpClient.extractHttpEntityContent(response);
-        JsonNode jsonNode;
-        try {
-            jsonNode = objectMapper.readValue(entityContent, JsonNode.class);
-        } catch (IOException e) {
-            throw new AtJsonSchemaValidatorException(e);
-        }
-        return jsonNode;
     }
 
     private String getMessagesOnFailedValidation(Set<ValidationMessage> validationResult) {

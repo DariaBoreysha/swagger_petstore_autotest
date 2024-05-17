@@ -1,5 +1,6 @@
 package stephelper;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.http.HttpResponse;
 
 import java.util.HashMap;
@@ -24,7 +25,11 @@ public class Memory {
         map.clear();
     }
 
-    public static HttpResponse asHttpResponse(String key){
+    public static HttpResponse asHttpResponse(String key) {
         return (HttpResponse) map.get(key);
+    }
+
+    public static JsonNode asJsonNode(String key) {
+        return (JsonNode) map.get(key);
     }
 }
