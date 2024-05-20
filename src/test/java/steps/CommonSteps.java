@@ -8,7 +8,6 @@ import org.apache.http.HttpResponse;
 import org.assertj.core.api.SoftAssertions;
 import stephelper.Memory;
 import utils.HttpUtil;
-import utils.JsonSchemaValidator;
 
 public class CommonSteps {
 
@@ -35,5 +34,18 @@ public class CommonSteps {
         HttpResponse response = Memory.asHttpResponse(responseVariableName);
         JsonNode responseJsonBody = HttpUtil.convertHttpResponseToJsonNode(response);
         Memory.put(jsonNodeVariableName, responseJsonBody);
+    }
+
+    @And("извлекаем тело JSON из Memory переменной : {string} и проверяем соответствие полей code, type, message значениям {int}, {string}, {string}")
+    public void checkResponseMessage(
+            String jsonNodeVariableName,
+            int expectedCodeValue,
+            String expectedTypeValue,
+            String expectedMessageValue
+    ) {
+        JsonNode jsonResponseBody = Memory.asJsonNode(jsonNodeVariableName);
+        PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "code", expectedCodeValue);
+        PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "type", expectedTypeValue);
+        PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "message", expectedMessageValue);
     }
 }

@@ -10,7 +10,7 @@ import utils.JsonSchemaValidator;
 
 public class FindPetByStatusSteps extends BaseSteps {
 
-    @When("формируем GET запрос с валидным параметром {string} со значением {string}, отправляем на {string} и сохраняем ответ в Memory как {string}")
+    @When("формируем GET запрос с параметром {string} со значением {string}, отправляем на {string} и сохраняем ответ в Memory как {string}")
     public void sendGetRequest(
             String parameterName,
             String parameterValue,
@@ -38,7 +38,7 @@ public class FindPetByStatusSteps extends BaseSteps {
     ) {
         JsonNode responseJsonBody = Memory.asJsonNode(jsonNodeVariableName);
         String[] fieldExpectedValues = expectedStatusValue.split(",");
-        PetstoreAssertion.assertBodyStatusFieldValueIsCorrect(responseJsonBody, fieldExpectedValues);
+        PetstoreAssertion.assertBodyFieldValueIsCorrect(responseJsonBody, "status", fieldExpectedValues);
         Memory.put(jsonNodeVariableName, responseJsonBody);
     }
 }

@@ -6,14 +6,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PetstoreAssertion {
 
-    //TODO Отрефакторить в случае, если необходимо будет проверять не только поле status
-    public static void assertBodyStatusFieldValueIsCorrect(
+    public static void assertBodyFieldValueIsCorrect(
             JsonNode jsonBody,
+            String fieldName,
             String[] expectedValues
     ) {
         for (int i = 0; i < jsonBody.size(); i++) {
-            assertThat(jsonBody.get(i).get("status").asText())
+            assertThat(jsonBody.get(i).get(fieldName).asText())
                     .containsAnyOf(expectedValues);
         }
+    }
+
+    public static <T> void assertBodyFieldValueIsCorrect(
+            JsonNode jsonBody,
+            String fieldName,
+            T expectedValue
+    ) {
+        assertThat(jsonBody.get(fieldName).asText())
+                .isEqualTo(expectedValue);
     }
 }
