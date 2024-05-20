@@ -5,9 +5,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.apache.http.HttpResponse;
-import org.assertj.core.api.SoftAssertions;
 import stephelper.Memory;
 import utils.HttpUtil;
+
+import static steps.BaseSteps.softly;
 
 public class CommonSteps {
 
@@ -20,7 +21,6 @@ public class CommonSteps {
         HttpResponse response = Memory.asHttpResponse(responseVariableName);
         int actualStatusCode = response.getStatusLine().getStatusCode();
         String actualReasonPhrase = response.getStatusLine().getReasonPhrase();
-        SoftAssertions softly = new SoftAssertions();
         softly.assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
         softly.assertThat(actualReasonPhrase).isEqualTo(expectedReasonPhrase);
         softly.assertAll();
@@ -47,5 +47,6 @@ public class CommonSteps {
         PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "code", expectedCodeValue);
         PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "type", expectedTypeValue);
         PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "message", expectedMessageValue);
+        softly.assertAll();
     }
 }
