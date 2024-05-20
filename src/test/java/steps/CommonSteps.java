@@ -8,8 +8,6 @@ import org.apache.http.HttpResponse;
 import stephelper.Memory;
 import utils.HttpUtil;
 
-import static steps.BaseSteps.softly;
-
 public class CommonSteps {
 
     @Then("извлекаем ответ из Memory переменной : {string} и проверяем соответствие статус кода и поясняющей фразы значениям {int}, {string}")
@@ -21,9 +19,9 @@ public class CommonSteps {
         HttpResponse response = Memory.asHttpResponse(responseVariableName);
         int actualStatusCode = response.getStatusLine().getStatusCode();
         String actualReasonPhrase = response.getStatusLine().getReasonPhrase();
-        softly.assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
-        softly.assertThat(actualReasonPhrase).isEqualTo(expectedReasonPhrase);
-        softly.assertAll();
+        BaseSteps.softly.assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
+        BaseSteps.softly.assertThat(actualReasonPhrase).isEqualTo(expectedReasonPhrase);
+        BaseSteps.softly.assertAll();
     }
 
     @And("конвертируем ответ из Memory: {string} в JsonNode и сохраняем как {string}")
@@ -47,6 +45,6 @@ public class CommonSteps {
         PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "code", expectedCodeValue);
         PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "type", expectedTypeValue);
         PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "message", expectedMessageValue);
-        softly.assertAll();
+        BaseSteps.softly.assertAll();
     }
 }
