@@ -2,11 +2,16 @@ package steps;
 
 import assertions.PetstoreAssertion;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.apache.http.HttpResponse;
+import org.assertj.core.api.SoftAssertions;
 import stephelper.Memory;
+import utils.DataTableConverter;
 import utils.HttpUtil;
+
+import java.util.HashMap;
 
 public class CommonSteps {
 
@@ -19,9 +24,10 @@ public class CommonSteps {
         HttpResponse response = Memory.asHttpResponse(responseVariableName);
         int actualStatusCode = response.getStatusLine().getStatusCode();
         String actualReasonPhrase = response.getStatusLine().getReasonPhrase();
-        BaseSteps.softly.assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
-        BaseSteps.softly.assertThat(actualReasonPhrase).isEqualTo(expectedReasonPhrase);
-        BaseSteps.softly.assertAll();
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
+        softly.assertThat(actualReasonPhrase).isEqualTo(expectedReasonPhrase);
+        softly.assertAll();
     }
 
     @And("конвертируем ответ из Memory: {string} в JsonNode и сохраняем как {string}")
@@ -34,17 +40,28 @@ public class CommonSteps {
         Memory.put(jsonNodeVariableName, responseJsonBody);
     }
 
-    @And("извлекаем тело JSON из Memory переменной : {string} и проверяем соответствие полей code, type, message значениям {int}, {string}, {string}")
-    public void checkResponseMessage(
-            String jsonNodeVariableName,
-            int expectedCodeValue,
-            String expectedTypeValue,
-            String expectedMessageValue
+    @And("извлекаем тело JSON из Memory переменной : {string} и проверяем соответствие фактических значений полей ожидаемым")
+    public void checkActualFieldValueMatchesExpected(
+            String memoryVariableName,
+            DataTable table
     ) {
-        JsonNode jsonResponseBody = Memory.asJsonNode(jsonNodeVariableName);
-        PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "code", expectedCodeValue);
-        PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "type", expectedTypeValue);
-        PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, "message", expectedMessageValue);
-        BaseSteps.softly.assertAll();
+        JsonNode jsonResponseBody = Memory.asJsonNode(memoryVariableName);
+        HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
+        for (String key : map.keySet()) {
+            PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, key, map.get(key));
+        }
+        PetstoreAssertion.softly.assertAll();
+    }
+
+    @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что значение поля {string} соответствует значению {string} запроса")
+    public void checkingStatusCorrectnessInServerResponse(
+            String jsonNodeVariableName,
+            String fieldName,
+            String expectedStatusValue
+    ) {
+        JsonNode responseJsonBody = Memory.asJsonNode(jsonNodeVariableName);
+        String[] fieldExpectedValues = expectedStatusValue.split(",");
+        PetstoreAssertion.assertBodyFieldValueIsCorrect(responseJsonBody, fieldName, fieldExpectedValues);
+        Memory.put(jsonNodeVariableName, responseJsonBody);
     }
 }
