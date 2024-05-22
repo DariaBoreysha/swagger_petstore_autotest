@@ -5,9 +5,12 @@ import org.assertj.core.api.SoftAssertions;
 
 public class PetstoreAssertion {
 
-    public static SoftAssertions softly = new SoftAssertions();
+    private SoftAssertions softly = new SoftAssertions();
 
-    public static void assertBodyArrayFieldValuesAreCorrect(
+    public PetstoreAssertion() {
+    }
+
+    public void assertBodyArrayFieldValuesAreCorrect(
             JsonNode jsonBody,
             String fieldName,
             String[] expectedValues
@@ -19,12 +22,16 @@ public class PetstoreAssertion {
         softly.assertAll();
     }
 
-    public static void assertBodyFieldValueIsCorrect(
+    public void assertBodyFieldValueIsCorrect(
             JsonNode jsonBody,
             String fieldName,
             String expectedValue
     ) {
         softly.assertThat(jsonBody.get(fieldName).asText())
                 .isEqualTo(expectedValue);
+    }
+
+    public void assertAll(){
+        softly.assertAll();
     }
 }

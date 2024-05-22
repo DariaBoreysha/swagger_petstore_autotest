@@ -47,10 +47,11 @@ public class CommonSteps {
     ) {
         JsonNode jsonResponseBody = Memory.asJsonNode(memoryVariableName);
         HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
+        PetstoreAssertion assertion = new PetstoreAssertion();
         for (String key : map.keySet()) {
-            PetstoreAssertion.assertBodyFieldValueIsCorrect(jsonResponseBody, key, map.get(key));
+            assertion.assertBodyFieldValueIsCorrect(jsonResponseBody, key, map.get(key));
         }
-        PetstoreAssertion.softly.assertAll();
+        assertion.assertAll();
     }
 
     @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что значение поля {string} соответствует значению {string} запроса")
@@ -61,6 +62,7 @@ public class CommonSteps {
     ) {
         JsonNode responseJsonBody = Memory.asJsonNode(jsonNodeVariableName);
         String[] fieldExpectedValues = expectedStatusValue.split(",");
-        PetstoreAssertion.assertBodyArrayFieldValuesAreCorrect(responseJsonBody, fieldName, fieldExpectedValues);
+        PetstoreAssertion assertion = new PetstoreAssertion();
+        assertion.assertBodyArrayFieldValuesAreCorrect(responseJsonBody, fieldName, fieldExpectedValues);
     }
 }
