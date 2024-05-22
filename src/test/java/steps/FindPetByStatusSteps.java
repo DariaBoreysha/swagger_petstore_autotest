@@ -1,6 +1,5 @@
 package steps;
 
-import assertions.PetstoreAssertion;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -29,16 +28,5 @@ public class FindPetByStatusSteps extends BaseSteps {
         JsonNode jsonBody = Memory.asJsonNode(jsonNodeVariableName);
         JsonSchemaValidator schemaValidator = new JsonSchemaValidator();
         schemaValidator.validate(jsonBody, jsonSchemaFileName);
-    }
-
-    @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что значение поля status соответствует значению {string} запроса")
-    public void checkingStatusCorrectnessInServerResponse(
-            String jsonNodeVariableName,
-            String expectedStatusValue
-    ) {
-        JsonNode responseJsonBody = Memory.asJsonNode(jsonNodeVariableName);
-        String[] fieldExpectedValues = expectedStatusValue.split(",");
-        PetstoreAssertion.assertBodyFieldValueIsCorrect(responseJsonBody, "status", fieldExpectedValues);
-        Memory.put(jsonNodeVariableName, responseJsonBody);
     }
 }
