@@ -7,7 +7,7 @@ public class PetstoreAssertion {
 
     public static SoftAssertions softly = new SoftAssertions();
 
-    public static void assertBodyFieldValueIsCorrect(
+    public static void assertBodyArrayFieldValuesAreCorrect(
             JsonNode jsonBody,
             String fieldName,
             String[] expectedValues
@@ -19,10 +19,10 @@ public class PetstoreAssertion {
         softly.assertAll();
     }
 
-    public static <T> void assertBodyFieldValueIsCorrect(
+    public static void assertBodyFieldValueIsCorrect(
             JsonNode jsonBody,
             String fieldName,
-            T expectedValue
+            String expectedValue
     ) {
         softly.assertThat(jsonBody.get(fieldName).asText())
                 .isEqualTo(expectedValue);

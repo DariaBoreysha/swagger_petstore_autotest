@@ -61,7 +61,6 @@ public class CommonSteps {
     ) {
         JsonNode responseJsonBody = Memory.asJsonNode(jsonNodeVariableName);
         String[] fieldExpectedValues = expectedStatusValue.split(",");
-        PetstoreAssertion.assertBodyFieldValueIsCorrect(responseJsonBody, fieldName, fieldExpectedValues);
-        Memory.put(jsonNodeVariableName, responseJsonBody);
+        PetstoreAssertion.assertBodyArrayFieldValuesAreCorrect(responseJsonBody, fieldName, fieldExpectedValues);
     }
 }
