@@ -26,8 +26,16 @@ Feature: [SWAGGER-1] Поиск питомца по статусу
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
     And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие полей code, type, message значениям <code>, "<type>", "<message>"
+      | field | value |
+      | code  | 400   |
+    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие полей code, type, message значениям <code>, "<type>", "<message>"
+      | field  | value          |
+      | phrase | Invalid status |
+    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие полей code, type, message значениям <code>, "<type>", "<message>"
+      | field   | value          |
+      | message | Invalid status |
 
     Examples:
-      | status  | code | phrase         | type    | message        |
-      | created | 400  | Invalid status | unknown | Invalid status |
-      |         | 400  | Invalid status | unknown | Invalid status |
+      | status  | code |
+      | created | 400  |
+      |         | 400  |
