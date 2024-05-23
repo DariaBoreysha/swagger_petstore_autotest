@@ -5,9 +5,10 @@ import org.assertj.core.api.SoftAssertions;
 
 public class PetstoreAssertion {
 
-    private SoftAssertions softly = new SoftAssertions();
+    private SoftAssertions softly;
 
     public PetstoreAssertion() {
+        softly = new SoftAssertions();
     }
 
     public void assertBodyArrayFieldValuesAreCorrect(
