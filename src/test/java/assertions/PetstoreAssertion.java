@@ -1,19 +1,38 @@
 package assertions;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.SoftAssertions;
 
 public class PetstoreAssertion {
 
-    //TODO Отрефакторить в случае, если необходимо будет проверять не только поле status
-    public static void assertBodyStatusFieldValueIsCorrect(
+    private SoftAssertions softly;
+
+    public PetstoreAssertion() {
+        softly = new SoftAssertions();
+    }
+
+    public void assertBodyArrayFieldValuesAreCorrect(
             JsonNode jsonBody,
+            String fieldName,
             String[] expectedValues
     ) {
         for (int i = 0; i < jsonBody.size(); i++) {
-            assertThat(jsonBody.get(i).get("status").asText())
+            softly.assertThat(jsonBody.get(i).get(fieldName).asText())
                     .containsAnyOf(expectedValues);
         }
+        softly.assertAll();
+    }
+
+    public void assertBodyFieldValueIsCorrect(
+            JsonNode jsonBody,
+            String fieldName,
+            String expectedValue
+    ) {
+        softly.assertThat(jsonBody.get(fieldName).asText())
+                .isEqualTo(expectedValue);
+    }
+
+    public void assertAll(){
+        softly.assertAll();
     }
 }

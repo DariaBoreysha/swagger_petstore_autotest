@@ -5,15 +5,14 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
+import constants.Constants;
 import exceptions.AtJsonSchemaValidatorException;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
-
-import static constants.Constants.SCHEMA_FOLDER;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonSchemaValidator {
 
@@ -21,14 +20,14 @@ public class JsonSchemaValidator {
         JsonSchema jsonSchema = createJsonSchema(jsonSchemaFileName);
         Set<ValidationMessage> validationResult = jsonSchema.validate(jsonBody);
         if (!validationResult.isEmpty()) {
-            fail(getMessagesOnFailedValidation(validationResult));
+            Assertions.fail(getMessagesOnFailedValidation(validationResult));
         }
     }
 
     private JsonSchema createJsonSchema(String jsonSchemaFileName) {
         JsonSchema schema;
         try (
-                InputStream schemaStream = new FileInputStream(SCHEMA_FOLDER + jsonSchemaFileName)
+                InputStream schemaStream = new FileInputStream(Constants.SCHEMA_FOLDER + jsonSchemaFileName)
         ) {
             JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7);
             schema = schemaFactory.getSchema(schemaStream);
