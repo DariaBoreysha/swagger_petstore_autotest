@@ -15,7 +15,7 @@ import static steps.BaseSteps.httpClient;
 
 public class AddNewPetSteps {
 
-    @Given("отправляем DELETE запрос на {string} эндпойнт {string} со значением path параметра {}")
+    @Given("отправляем DELETE запрос на {string} эндпойнт {string} со значением path параметра {long}")
     public void sendDeleteRequest(
             String uri,
             String endpoint,
