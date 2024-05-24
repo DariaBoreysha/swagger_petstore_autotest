@@ -23,7 +23,9 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
 #    And извлекаем тело из Memory: "request_body", создаем объект класса "Pet" и сохраняем в Memory как "request_as_pojo"
 #    And извлекаем тело из Memory: "response_entity", создаем объект класса "Pet" и сохраняем в Memory как "response_as_pojo"
 #    And извлекаем тело ответа и тело запроса из Memory: "request_as_pojo", "response_as_pojo" и проверяем, что ответ и запрос совпадают
-#    And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и проверяем, что запись по данному <id> совпадает с отправленной из "request_body"
+#    And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем тело ответа в Memory как "get_response"
+#    And извлекаем тело из Memory: "get_response", создаем объект класса "Pet" и сохраняем в Memory как "get_response_as_pojo"
+#    And извлекаем тело ответа и тело запроса из Memory: "request_as_pojo", "get_response_as_pojo" и проверяем, что ответ и запрос совпадают
 
     Examples:
       | id                  | code | phrase |
