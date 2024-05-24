@@ -6,6 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpResponse;
 import stephelper.Memory;
+import stephelper.RequestComposer;
 import utils.DataTableConverter;
 
 import java.util.HashMap;
