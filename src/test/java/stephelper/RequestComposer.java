@@ -1,5 +1,7 @@
 package stephelper;
 
+import utils.FileUtil;
+
 import java.util.HashMap;
 
 public class RequestComposer {
