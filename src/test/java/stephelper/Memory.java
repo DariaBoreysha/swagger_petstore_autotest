@@ -32,4 +32,8 @@ public class Memory {
     public static JsonNode asJsonNode(String key) {
         return (JsonNode) map.get(key);
     }
+
+    public static String asString(String key) {
+        return (String) map.get(key);
+    }
 }
