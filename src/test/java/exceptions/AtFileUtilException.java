@@ -1,6 +1,6 @@
 package exceptions;
 
-public class AtFileUtilException extends RuntimeException{
+public class AtFileUtilException extends AtException{
 
     public AtFileUtilException(Throwable cause) {
         super(cause);
