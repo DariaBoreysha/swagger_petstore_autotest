@@ -1,10 +1,8 @@
 package utils;
 
 import client.HttpClient;
-import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import exceptions.AtHttpUtilException;
 import org.apache.http.HttpResponse;
 

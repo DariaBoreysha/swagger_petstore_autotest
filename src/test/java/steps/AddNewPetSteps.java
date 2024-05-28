@@ -1,15 +1,11 @@
 package steps;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpResponse;
 import stephelper.Memory;
 import utils.DataTableConverter;
-import utils.HttpUtil;
 import utils.StringUtil;
 
 import java.util.HashMap;
