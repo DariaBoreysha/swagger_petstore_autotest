@@ -17,7 +17,7 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | tag_id        | 2001                                 |
       | tag_name      | Pet                                  |
       | status        | available                            |
-    When извлекаем JSON из Memory: "request_body", отправляем POST запрос на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
+    When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
 #    And извлекаем тело из Memory: "request_body", создаем объект класса "Pet" и сохраняем в Memory как "request_as_pojo"
 #    And извлекаем тело из Memory: "response_entity", создаем объект класса "Pet" и сохраняем в Memory как "response_as_pojo"

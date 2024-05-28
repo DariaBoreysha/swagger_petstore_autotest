@@ -35,7 +35,7 @@ public class AddNewPetSteps {
         Memory.put(memoryVariableName, requestBody);
     }
 
-    @When("извлекаем JSON из Memory: {string}, отправляем POST запрос на {string} и сохраняем ответ в Memory как {string}")
+    @When("отправляем POST запрос c телом из Memory: {string} на {string} и сохраняем ответ в Memory как {string}")
     public void sendPostRequest(
             String memoryRequestVariableName,
             String url,

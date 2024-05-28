@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class FileUtil {
 
-    public static String readFileToString(String filePath) {
+    public static String read(String filePath) {
         String body;
         try {
             body = FileUtils.readFileToString(new File(filePath), "UTF-8");
