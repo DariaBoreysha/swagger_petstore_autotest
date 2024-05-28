@@ -12,7 +12,7 @@ public class TestDataGenerator {
             case "pet_entity_id":
                 HttpClient httpClient = new HttpClient();
                 String pathParameter = StringUtil.generateStringOfDigits(9223372036854775807L);
-                httpClient.sendDeleteRequest("https://petstore.swagger.io", "/v2/pet/", pathParameter);
+                httpClient.deleteMethod().delete("https://petstore.swagger.io", "/v2/pet/", pathParameter);
                 return pathParameter;
             default:
                 return StringUtil.generateStringOfDigits(10);
