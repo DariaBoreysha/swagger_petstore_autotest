@@ -6,8 +6,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpResponse;
 import stephelper.Memory;
-import stephelper.RequestComposer;
 import utils.DataTableConverter;
+import utils.StringUtil;
 
 import java.util.HashMap;
 
@@ -31,7 +31,7 @@ public class AddNewPetSteps {
             DataTable table
     ) {
         HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
-        String requestBody = RequestComposer.composeRequest(fileSampleName, map);
+        String requestBody = StringUtil.composeRequest(fileSampleName, map);
         Memory.put(memoryVariableName, requestBody);
     }
 
