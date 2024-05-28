@@ -39,29 +39,4 @@ public class AddNewPetSteps {
         HttpResponse response = httpClient.postMethod().post(url, requestBody);
         Memory.put(memoryResponseVariableName, response);
     }
-
-    /**
-     * Если проверять через конвертацию в jsonNode
-     */
-
-    @And("извлекаем тело из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
-    public void responseToString(String memoryVariableBefore, String memoryVariableAfter) {
-        JsonNode jsonNode = HttpUtil.convertHttpResponseToJsonNode(Memory.asHttpResponse(memoryVariableBefore));
-        Memory.put(memoryVariableAfter, jsonNode);
-    }
-
-    @And("извлекаем тело запроса из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
-    public void requestToJsonNode(String memoryVariableBefore, String memoryVariableAfter) throws JsonProcessingException {
-        String body = Memory.asString(memoryVariableBefore);
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(body);
-        Memory.put(memoryVariableAfter, jsonNode);
-    }
-
-    @And("извлекаем тело ответа и тело запроса из Memory: {string}, {string} и проверяем, что ответ и запрос совпадают")
-    public void toJsonNode(String request, String response) {
-        JsonNode requestNode = Memory.asJsonNode(request);
-        JsonNode responseNode = Memory.asJsonNode(response);
-        System.out.println(requestNode.equals(responseNode));
-    }
 }

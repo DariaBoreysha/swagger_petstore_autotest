@@ -9,16 +9,6 @@ import java.io.InputStream;
 
 public class HttpClient {
 
-    /**
-     * Вынести методы по созданию запросов, добавлению параметров, хэдеров и т.д. в отдельные классы,
-     * а тут оставить только sendGetRequest, sendPostRequest, sendDeleteRequest?
-     * <p>
-     * public HttpResponse sendGetRequest(){
-     * return httpPost.send(*параметры*);
-     * }
-     * <p>
-     * +Дописать исключения для каждого класса, которые бы наследовались от AtHttpClientException?
-     */
     private Delete httpDelete;
     private Post httpPost;
     private Get httpGet;
