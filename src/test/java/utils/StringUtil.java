@@ -14,10 +14,6 @@ public class StringUtil {
         return String.valueOf((long) (Math.random() * (upperBorder - 1)) + 1);
     }
 
-    public static long generateNumber(long upperBorder) {
-        return (long) (Math.random() * (upperBorder - 1)) + 1;
-    }
-
     public static String composeRequest(String fileSampleName, HashMap<String, String> map) {
         String request = FileUtil.read(Constants.SAMPLES_FOLDER + fileSampleName);
         for (String key : map.keySet()) {

@@ -15,15 +15,6 @@ import static steps.BaseSteps.httpClient;
 
 public class AddNewPetSteps {
 
-    @Given("отправляем DELETE запрос на {string} эндпойнт {string} со значением path параметра {long}")
-    public void sendDeleteRequest(
-            String uri,
-            String endpoint,
-            long id
-    ) {
-        httpClient.sendDeleteRequest(uri, endpoint, id);
-    }
-
     @And("формируем JSON на основе шаблона {string} и сохраняем в Memory как {string}")
     public void formRequestBody(
             String fileSampleName,
