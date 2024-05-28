@@ -1,5 +1,5 @@
 {
-  "id": "#{placeholder_entity_id}",
+  "id": "#{placeholder_pet_entity_id}",
   "category": {
     "id": "#{placeholder_category_id}",
     "name": "#{placeholder_category_name}"

@@ -6,15 +6,14 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
 
   @SWAGGER-2.1 @positive
   Scenario Outline: Добавление записи о питомце с уникальным id
-    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" со значением path параметра <id>
     And формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
       | field         | value                                |
-      | entity_id     | <id>                                 |
-      | category_id   | 1001                                 |
+      | pet_entity_id | GENERATE : pet_entity_id             |
+      | category_id   | GENERATE : id                        |
       | category_name | Animal                               |
       | pet_name      | Rocky                                |
       | photourls     | img/test/dog.jpeg,img/test/dog1.jpeg |
-      | tag_id        | 2001                                 |
+      | tag_id        | GENERATE : id                        |
       | tag_name      | Pet                                  |
       | status        | <status>                             |
     When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
@@ -27,10 +26,7 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
 #    And извлекаем тело ответа и тело запроса из Memory: "request_as_pojo", "get_response_as_pojo" и проверяем, что ответ и запрос совпадают
 
     Examples:
-      | id                  | status    | code | phrase |
-      | 9223372036854775807 | available | 200  | OK     |
-      | 9223372036854775807 | pending   | 200  | OK     |
-      | 9223372036854775807 | sold      | 200  | OK     |
-      | 1                   | available | 200  | OK     |
-      | 1                   | pending   | 200  | OK     |
-      | 1                   | sold      | 200  | OK     |
+      | status    | code | phrase |
+      | available | 200  | OK     |
+      | pending   | 200  | OK     |
+      | sold      | 200  | OK     |

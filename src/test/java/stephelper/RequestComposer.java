@@ -15,7 +15,7 @@ public class RequestComposer {
         for (String key : map.keySet()) {
             String placeholder = PREFIX + key + POSTFIX;
             if (request.contains(placeholder)) {
-                request = request.replace(placeholder, map.get(key));
+                request = request.replace(placeholder, Memory.review(map.get(key)));
             }
         }
         return request;

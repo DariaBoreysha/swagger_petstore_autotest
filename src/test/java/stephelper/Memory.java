@@ -9,6 +9,8 @@ import java.util.Map;
 public class Memory {
 
     private static Memory INSTANCE;
+    private static final int GENERATE_SPACE_2_INDEX = 11;
+    private static final String GENERATE_SPACE_2 = "GENERATE : ";
     private static final Map<String, Object> map = new HashMap<>();
 
     public static void getInstance() {
@@ -35,5 +37,24 @@ public class Memory {
 
     public static String asString(String key) {
         return (String) map.get(key);
+    }
+
+    private static String defineGenerateVariable(String memoryVariable){
+        String value = TestDataGenerator.generate(memoryVariable);
+        map.put(memoryVariable, value);
+        return value;
+    }
+
+    public static String review(String value){
+        return reviewVariable(value);
+    }
+
+    private static String reviewVariable(String value){
+        if(value == null){
+            return "";
+        } else if (value.startsWith(GENERATE_SPACE_2)) {
+            return defineGenerateVariable(value.substring(GENERATE_SPACE_2_INDEX));
+        }
+        return value;
     }
 }
