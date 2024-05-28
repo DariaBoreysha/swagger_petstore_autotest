@@ -16,7 +16,7 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | photourls     | img/test/dog.jpeg,img/test/dog1.jpeg |
       | tag_id        | 2001                                 |
       | tag_name      | Pet                                  |
-      | status        | available                            |
+      | status        | <status>                             |
     When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
 #    And извлекаем тело из Memory: "request_body", создаем объект класса "Pet" и сохраняем в Memory как "request_as_pojo"
@@ -27,6 +27,10 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
 #    And извлекаем тело ответа и тело запроса из Memory: "request_as_pojo", "get_response_as_pojo" и проверяем, что ответ и запрос совпадают
 
     Examples:
-      | id                  | code | phrase |
-      | 9223372036854775807 | 200  | OK     |
-      | 1                   | 200  | OK     |
+      | id                  | status    | code | phrase |
+      | 9223372036854775807 | available | 200  | OK     |
+      | 9223372036854775807 | pending   | 200  | OK     |
+      | 9223372036854775807 | sold      | 200  | OK     |
+      | 1                   | available | 200  | OK     |
+      | 1                   | pending   | 200  | OK     |
+      | 1                   | sold      | 200  | OK     |
