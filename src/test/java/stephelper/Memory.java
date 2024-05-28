@@ -39,20 +39,21 @@ public class Memory {
         return (String) map.get(key);
     }
 
-    private static String defineGenerateVariable(String memoryVariable){
+    private static String defineGenerateVariable(String memoryVariable) {
         String value = TestDataGenerator.generate(memoryVariable);
         map.put(memoryVariable, value);
         return value;
     }
 
-    public static String review(String value){
+    public static String review(String value) {
         return reviewVariable(value);
     }
 
-    private static String reviewVariable(String value){
-        if(value == null){
+    private static String reviewVariable(String value) {
+        if (value == null) {
             return "";
-        } else if (value.startsWith(GENERATE_SPACE_2)) {
+        }
+        if (value.startsWith(GENERATE_SPACE_2)) {
             return defineGenerateVariable(value.substring(GENERATE_SPACE_2_INDEX));
         }
         return value;
