@@ -17,6 +17,5 @@ public class TestDataGenerator {
             default:
                 return StringUtil.generateStringOfDigits(10);
         }
-
     }
 }
