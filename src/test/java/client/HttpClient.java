@@ -1,6 +1,9 @@
 package client;
 
 import exceptions.AtHttpClientException;
+import methods.Delete;
+import methods.Get;
+import methods.Post;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 

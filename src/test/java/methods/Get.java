@@ -1,4 +1,4 @@
-package client;
+package methods;
 
 import exceptions.AtHttpClientException;
 import org.apache.http.Header;
