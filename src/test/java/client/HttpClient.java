@@ -12,26 +12,26 @@ import java.io.InputStream;
 
 public class HttpClient {
 
-    private Delete httpDelete;
-    private Post httpPost;
-    private Get httpGet;
+    private Delete methodDelete;
+    private Post methodPost;
+    private Get methodGet;
 
     public HttpClient() {
-        httpDelete = new Delete();
-        httpPost = new Post();
-        httpGet = new Get();
+        methodDelete = new Delete();
+        methodPost = new Post();
+        methodGet = new Get();
     }
 
     public Get methodGet() {
-        return httpGet;
+        return methodGet;
     }
 
     public Post methodPost() {
-        return httpPost;
+        return methodPost;
     }
 
     public Delete methodDelete() {
-        return httpDelete;
+        return methodDelete;
     }
 
     public static InputStream extractHttpEntityContent(HttpResponse response) {
