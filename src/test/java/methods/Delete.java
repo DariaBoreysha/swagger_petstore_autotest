@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 public class Delete {
 
-    public HttpResponse delete(
+    public HttpResponse sendRequest(
             String url,
             String endpoint,
             String pathParameter

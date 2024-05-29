@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 public class Get {
 
-    public HttpResponse get(
+    public HttpResponse sendRequest(
             String url,
             String parameterName,
             String parameterValue

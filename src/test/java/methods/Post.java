@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class Post {
 
-    public HttpResponse post(
+    public HttpResponse sendRequest(
             String url,
             String body
     ) {
