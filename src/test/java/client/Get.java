@@ -21,12 +21,12 @@ public class Get {
             String parameterName,
             String parameterValue
     ) {
-        HttpGet request = composeGetRequest(
+        HttpGet request = composeRequest(
                 url,
                 parameterName,
                 parameterValue
         );
-        logGetRequest(request.getURI(), request.getAllHeaders());
+        logRequest(request.getURI(), request.getAllHeaders());
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response;
         try {
@@ -37,7 +37,7 @@ public class Get {
         return response;
     }
 
-    public HttpGet composeGetRequest(
+    public HttpGet composeRequest(
             String url,
             String parameterName,
             String parameterValue
@@ -69,7 +69,7 @@ public class Get {
         return request;
     }
 
-    private static void logGetRequest(URI uri, Header[] headers) {
+    private static void logRequest(URI uri, Header[] headers) {
         Log.log("GET request: " + System.lineSeparator()
                 + "URL: " + uri + System.lineSeparator()
                 + "headers: " + Arrays.toString(headers)

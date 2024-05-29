@@ -21,8 +21,8 @@ public class Delete {
             String endpoint,
             String pathParameter
     ) {
-        HttpDelete request = composeDeleteRequest(url, endpoint, pathParameter);
-        logDeleteRequest(request.getURI(), request.getAllHeaders());
+        HttpDelete request = composeRequest(url, endpoint, pathParameter);
+        logRequest(request.getURI(), request.getAllHeaders());
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response;
         try {
@@ -33,14 +33,14 @@ public class Delete {
         return response;
     }
 
-    private void logDeleteRequest(URI uri, Header[] allHeaders) {
+    private void logRequest(URI uri, Header[] allHeaders) {
         Log.log("DELETE request: " + System.lineSeparator()
                 + "URL: " + uri + System.lineSeparator()
                 + "headers: " + Arrays.toString(allHeaders)
         );
     }
 
-    private HttpDelete composeDeleteRequest(
+    private HttpDelete composeRequest(
             String url,
             String endpoint,
             String pathParameter
