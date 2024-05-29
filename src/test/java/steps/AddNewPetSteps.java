@@ -32,7 +32,7 @@ public class AddNewPetSteps {
             String memoryResponseVariableName
     ) {
         String requestBody = Memory.asString(memoryRequestVariableName);
-        HttpResponse response = httpClient.postMethod().post(url, requestBody);
+        HttpResponse response = httpClient.methodPost().post(url, requestBody);
         Memory.put(memoryResponseVariableName, response);
     }
 }

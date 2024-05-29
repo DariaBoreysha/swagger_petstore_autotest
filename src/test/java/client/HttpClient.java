@@ -19,15 +19,15 @@ public class HttpClient {
         httpGet = new Get();
     }
 
-    public Get getMethod() {
+    public Get methodGet() {
         return httpGet;
     }
 
-    public Post postMethod() {
+    public Post methodPost() {
         return httpPost;
     }
 
-    public Delete deleteMethod() {
+    public Delete methodDelete() {
         return httpDelete;
     }
 

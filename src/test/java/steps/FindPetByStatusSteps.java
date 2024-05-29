@@ -16,7 +16,7 @@ public class FindPetByStatusSteps extends BaseSteps {
             String url,
             String memoryVariableName
     ) {
-        HttpResponse response = httpClient.getMethod().get(url, parameterName, parameterValue);
+        HttpResponse response = httpClient.methodGet().get(url, parameterName, parameterValue);
         Memory.put(memoryVariableName, response);
     }
 
