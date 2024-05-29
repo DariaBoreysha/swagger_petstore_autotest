@@ -3,7 +3,7 @@ package utils;
 import client.HttpClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.AtJsonSchemaValidatorException;
+import exceptions.AtHttpUtilException;
 import org.apache.http.HttpResponse;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class HttpUtil {
         try {
             jsonNode = objectMapper.readValue(entityContent, JsonNode.class);
         } catch (IOException e) {
-            throw new AtJsonSchemaValidatorException(e);
+            throw new AtHttpUtilException(e);
         }
         return jsonNode;
     }

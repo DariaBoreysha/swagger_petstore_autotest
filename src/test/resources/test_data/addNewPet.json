@@ -1,0 +1,18 @@
+{
+  "id": #{placeholder_pet_entity_id},
+  "category": {
+    "id": #{placeholder_category_id},
+    "name": "#{placeholder_category_name}"
+  },
+  "name": "#{placeholder_pet_name}",
+  "photoUrls": [
+    "#{placeholder_photourls}"
+  ],
+  "tags": [
+    {
+      "id": #{placeholder_tag_id},
+      "name": "#{placeholder_tag_name}"
+    }
+  ],
+  "status": "#{placeholder_status}"
+}
