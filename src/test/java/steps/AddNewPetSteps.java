@@ -39,17 +39,23 @@ public class AddNewPetSteps extends BaseSteps {
     }
 
     @And("извлекаем тело ответа из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
-    public void responseToString(String memoryVariableBefore, String memoryVariableAfter) {
-        HttpResponse response = Memory.asHttpResponse(memoryVariableBefore);
+    public void responseToString(
+            String memoryVariableAsHttpResponse,
+            String memoryVariableAsJsonNode
+    ) {
+        HttpResponse response = Memory.asHttpResponse(memoryVariableAsHttpResponse);
         JsonNode jsonNode = HttpUtil.convertHttpResponseToJsonNode(response);
-        Memory.put(memoryVariableAfter, jsonNode);
+        Memory.put(memoryVariableAsJsonNode, jsonNode);
     }
 
     @And("извлекаем тело запроса из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
-    public void requestToJsonNode(String memoryVariableBefore, String memoryVariableAfter) {
-        String body = Memory.asString(memoryVariableBefore);
+    public void requestToJsonNode(
+            String memoryVariableAsString,
+            String memoryVariableAsJsonNode
+    ) {
+        String body = Memory.asString(memoryVariableAsString);
         JsonNode jsonNode = JsonNodeUtil.convertStringToJsonNode(body);
-        Memory.put(memoryVariableAfter, jsonNode);
+        Memory.put(memoryVariableAsJsonNode, jsonNode);
     }
 
     @And("извлекаем тело ответа и тело запроса из Memory: {string}, {string} и проверяем, что ответ и запрос совпадают")
