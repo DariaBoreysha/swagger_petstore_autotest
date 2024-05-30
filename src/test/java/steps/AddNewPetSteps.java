@@ -1,8 +1,6 @@
 package steps;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -60,5 +58,18 @@ public class AddNewPetSteps {
         JsonNode requestNode = Memory.asJsonNode(request);
         JsonNode responseNode = Memory.asJsonNode(response);
         AssertionsForClassTypes.assertThat(requestNode).isEqualTo(responseNode);
+    }
+
+
+    @And("отправляем GET запрос на {string} эндпойнт {string} с path параметром равным {string} и сохраняем тело ответа в Memory как {string}")
+    public void sendGetRequestWithPathParam(
+            String url,
+            String endpoint,
+            String pathParameterMemoryVariable,
+            String memoryVariableName
+    ) {
+        String pathParameterValue = Memory.asString(pathParameterMemoryVariable);
+        HttpResponse response = httpClient.methodGet().sendRequestWithPathParam(url, endpoint, pathParameterValue);
+        Memory.put(memoryVariableName, response);
     }
 }

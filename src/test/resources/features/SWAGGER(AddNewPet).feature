@@ -21,9 +21,9 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
     And извлекаем тело ответа из Memory: "response_entity", конвертируем в jsonNode и сохраняем в Memory как "response_as_jsonNode"
     And извлекаем тело запроса из Memory: "request_body", конвертируем в jsonNode и сохраняем в Memory как "request_as_jsonNode"
     And извлекаем тело ответа и тело запроса из Memory: "request_as_jsonNode", "response_as_jsonNode" и проверяем, что ответ и запрос совпадают
-#    And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" с параметром id равным "MEMORY : pet_entity_id" и сохраняем тело ответа в Memory как "get_response"
-#    And извлекаем тело ответа из Memory: "get_response", конвертируем в jsonNode и сохраняем в Memory как "get_response_as_jsonNode"
-#    And извлекаем тело ответа и тело запроса из Memory: "request_as_jsonNode", "get_response_as_jsonNode" и проверяем, что ответ и запрос совпадают
+    And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" с path параметром равным "pet_entity_id" и сохраняем тело ответа в Memory как "get_response"
+    And извлекаем тело ответа из Memory: "get_response", конвертируем в jsonNode и сохраняем в Memory как "get_response_as_jsonNode"
+    And извлекаем тело ответа и тело запроса из Memory: "request_as_jsonNode", "get_response_as_jsonNode" и проверяем, что ответ и запрос совпадают
 
     Examples:
       | status    | code | phrase |

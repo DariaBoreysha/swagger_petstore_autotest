@@ -1,6 +1,6 @@
 package methods;
 
-import exceptions.AtHttpClientException;
+import exceptions.AtGetMethodException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -16,12 +16,12 @@ import java.util.Arrays;
 
 public class Get {
 
-    public HttpResponse sendRequest(
+    public HttpResponse sendRequestWithQueryParam(
             String url,
             String parameterName,
             String parameterValue
     ) {
-        HttpGet request = composeRequest(
+        HttpGet request = composeRequestWithQueryParam(
                 url,
                 parameterName,
                 parameterValue
@@ -32,18 +32,18 @@ public class Get {
         try {
             response = httpClient.execute(request);
         } catch (IOException e) {
-            throw new AtHttpClientException(e);
+            throw new AtGetMethodException(e);
         }
         return response;
     }
 
-    public HttpGet composeRequest(
+    public HttpGet composeRequestWithQueryParam(
             String url,
             String parameterName,
             String parameterValue
     ) {
         HttpGet request = new HttpGet(url);
-        addParameter(request, parameterName, parameterValue);
+        addQueryParameter(request, parameterName, parameterValue);
         addDefaultHeaders(request);
         return request;
     }
@@ -53,7 +53,7 @@ public class Get {
         return request;
     }
 
-    private HttpGet addParameter(
+    private HttpGet addQueryParameter(
             HttpGet request,
             String parameterName,
             String parameterValue
@@ -63,7 +63,7 @@ public class Get {
             uri = new URIBuilder(request.getURI())
                     .addParameter(parameterName, parameterValue).build();
         } catch (URISyntaxException e) {
-            throw new AtHttpClientException(e);
+            throw new AtGetMethodException(e);
         }
         request.setURI(uri);
         return request;
@@ -74,5 +74,53 @@ public class Get {
                 + "URL: " + uri + System.lineSeparator()
                 + "headers: " + Arrays.toString(headers)
         );
+    }
+
+    public HttpResponse sendRequestWithPathParam(
+            String url,
+            String endpoint,
+            String parameterValue
+    ) {
+        HttpGet request = composeRequestWithPathParam(
+                url,
+                endpoint,
+                parameterValue
+        );
+        logRequest(request.getURI(), request.getAllHeaders());
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        HttpResponse response;
+        try {
+            response = httpClient.execute(request);
+        } catch (IOException e) {
+            throw new AtGetMethodException(e);
+        }
+        return response;
+    }
+
+    public HttpGet composeRequestWithPathParam(
+            String url,
+            String endpoint,
+            String parameterValue
+    ) {
+        HttpGet request = new HttpGet(url);
+        addPathParameter(request, endpoint, parameterValue);
+        addDefaultHeaders(request);
+        return request;
+    }
+
+    private HttpGet addPathParameter(
+            HttpGet request,
+            String endpoint,
+            String parameterValue
+    ) {
+        URI uri;
+        try {
+            uri = new URIBuilder(request.getURI())
+                    .setPath(endpoint + parameterValue).build();
+        } catch (URISyntaxException e) {
+            throw new AtGetMethodException(e);
+        }
+        request.setURI(uri);
+        return request;
     }
 }
