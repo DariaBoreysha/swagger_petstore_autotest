@@ -1,6 +1,6 @@
 package methods;
 
-import exceptions.AtHttpClientException;
+import exceptions.AtDeleteMethodException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -28,7 +28,7 @@ public class Delete {
         try {
             response = httpClient.execute(request);
         } catch (IOException e) {
-            throw new AtHttpClientException(e);
+            throw new AtDeleteMethodException(e);
         }
         return response;
     }
@@ -61,7 +61,7 @@ public class Delete {
             uri = new URIBuilder(request.getURI())
                     .setPath(endpoint + pathParameter).build();
         } catch (URISyntaxException e) {
-            throw new AtHttpClientException(e);
+            throw new AtDeleteMethodException(e);
         }
         request.setURI(uri);
         return request;
