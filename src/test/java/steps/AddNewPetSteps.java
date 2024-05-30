@@ -1,11 +1,16 @@
 package steps;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpResponse;
+import org.assertj.core.api.AssertionsForClassTypes;
 import stephelper.Memory;
 import utils.DataTableConverter;
+import utils.HttpUtil;
 import utils.StringUtil;
 
 import java.util.HashMap;
@@ -34,5 +39,26 @@ public class AddNewPetSteps {
         String requestBody = Memory.asString(memoryRequestVariableName);
         HttpResponse response = httpClient.methodPost().sendRequest(url, requestBody);
         Memory.put(memoryResponseVariableName, response);
+    }
+
+    @And("извлекаем тело ответа из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
+    public void responseToString(String memoryVariableBefore, String memoryVariableAfter) {
+        HttpResponse response = Memory.asHttpResponse(memoryVariableBefore);
+        JsonNode jsonNode = HttpUtil.convertHttpResponseToJsonNode(response);
+        Memory.put(memoryVariableAfter, jsonNode);
+    }
+
+    @And("извлекаем тело запроса из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
+    public void requestToJsonNode(String memoryVariableBefore, String memoryVariableAfter) {
+        String body = Memory.asString(memoryVariableBefore);
+        JsonNode jsonNode = StringUtil.convertStringToJsonNode(body);
+        Memory.put(memoryVariableAfter, jsonNode);
+    }
+
+    @And("извлекаем тело ответа и тело запроса из Memory: {string}, {string} и проверяем, что ответ и запрос совпадают")
+    public void toJsonNode(String request, String response) {
+        JsonNode requestNode = Memory.asJsonNode(request);
+        JsonNode responseNode = Memory.asJsonNode(response);
+        AssertionsForClassTypes.assertThat(requestNode).isEqualTo(responseNode);
     }
 }
