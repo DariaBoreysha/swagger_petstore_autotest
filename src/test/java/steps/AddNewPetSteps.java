@@ -58,11 +58,11 @@ public class AddNewPetSteps extends BaseSteps {
         Memory.put(memoryVariableAsJsonNode, jsonNode);
     }
 
-    @And("извлекаем тело ответа и тело запроса из Memory: {string}, {string} и проверяем, что ответ и запрос совпадают")
-    public void toJsonNode(String request, String response) {
-        JsonNode requestNode = Memory.asJsonNode(request);
-        JsonNode responseNode = Memory.asJsonNode(response);
-        AssertionsForClassTypes.assertThat(requestNode).isEqualTo(responseNode);
+    @And("проверяем, что JsonNode из Memory: {string} соответствует  JsonNode из Memory: {string}")
+    public void toJsonNode(String actual, String expected) {
+        JsonNode expectedNode = Memory.asJsonNode(expected);
+        JsonNode actualNode = Memory.asJsonNode(actual);
+        AssertionsForClassTypes.assertThat(actualNode).isEqualTo(expectedNode);
     }
 
 
