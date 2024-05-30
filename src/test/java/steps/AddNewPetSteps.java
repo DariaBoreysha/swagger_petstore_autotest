@@ -69,7 +69,9 @@ public class AddNewPetSteps {
             String memoryVariableName
     ) {
         String pathParameterValue = Memory.asString(pathParameterMemoryVariable);
-        HttpResponse response = httpClient.methodGet().sendRequestWithPathParam(url, endpoint, pathParameterValue);
+        HttpResponse response = httpClient.methodGet()
+                .setUrl(url).setEndpoint(endpoint)
+                .setPathParameter(pathParameterValue).sendRequest();
         Memory.put(memoryVariableName, response);
     }
 }
