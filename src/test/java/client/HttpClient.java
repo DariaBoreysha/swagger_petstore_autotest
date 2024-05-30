@@ -1,6 +1,9 @@
 package client;
 
 import exceptions.AtHttpClientException;
+import methods.Delete;
+import methods.Get;
+import methods.Post;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 
@@ -9,26 +12,26 @@ import java.io.InputStream;
 
 public class HttpClient {
 
-    private Delete httpDelete;
-    private Post httpPost;
-    private Get httpGet;
+    private Delete methodDelete;
+    private Post methodPost;
+    private Get methodGet;
 
     public HttpClient() {
-        httpDelete = new Delete();
-        httpPost = new Post();
-        httpGet = new Get();
+        methodDelete = new Delete();
+        methodPost = new Post();
+        methodGet = new Get();
     }
 
-    public Get getMethod() {
-        return httpGet;
+    public Get methodGet() {
+        return methodGet;
     }
 
-    public Post postMethod() {
-        return httpPost;
+    public Post methodPost() {
+        return methodPost;
     }
 
-    public Delete deleteMethod() {
-        return httpDelete;
+    public Delete methodDelete() {
+        return methodDelete;
     }
 
     public static InputStream extractHttpEntityContent(HttpResponse response) {

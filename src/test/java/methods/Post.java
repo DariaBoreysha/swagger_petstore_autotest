@@ -1,4 +1,4 @@
-package client;
+package methods;
 
 import exceptions.AtHttpClientException;
 import org.apache.http.Header;
@@ -15,12 +15,12 @@ import java.util.Arrays;
 
 public class Post {
 
-    public HttpResponse post(
+    public HttpResponse sendRequest(
             String url,
             String body
     ) {
-        HttpPost request = composePostRequest(url, body);
-        logPostRequest(request.getURI(), request.getAllHeaders(), body);
+        HttpPost request = composeRequest(url, body);
+        logRequest(request.getURI(), request.getAllHeaders(), body);
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response;
         try {
@@ -31,7 +31,7 @@ public class Post {
         return response;
     }
 
-    private HttpPost composePostRequest(
+    private HttpPost composeRequest(
             String url,
             String body
     ) {
@@ -47,7 +47,7 @@ public class Post {
         return request;
     }
 
-    private void logPostRequest(URI uri, Header[] allHeaders, String body) {
+    private void logRequest(URI uri, Header[] allHeaders, String body) {
         Log.log("POST request: " + System.lineSeparator()
                 + "URL: " + uri + System.lineSeparator()
                 + "headers: " + Arrays.toString(allHeaders) + System.lineSeparator()
