@@ -9,13 +9,12 @@ import org.assertj.core.api.AssertionsForClassTypes;
 import stephelper.Memory;
 import utils.DataTableConverter;
 import utils.HttpUtil;
+import utils.JsonNodeUtil;
 import utils.StringUtil;
 
 import java.util.HashMap;
 
-import static steps.BaseSteps.httpClient;
-
-public class AddNewPetSteps {
+public class AddNewPetSteps extends BaseSteps {
 
     @And("формируем JSON на основе шаблона {string} и сохраняем в Memory как {string}")
     public void formRequestBody(
@@ -49,7 +48,7 @@ public class AddNewPetSteps {
     @And("извлекаем тело запроса из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
     public void requestToJsonNode(String memoryVariableBefore, String memoryVariableAfter) {
         String body = Memory.asString(memoryVariableBefore);
-        JsonNode jsonNode = StringUtil.convertStringToJsonNode(body);
+        JsonNode jsonNode = JsonNodeUtil.convertStringToJsonNode(body);
         Memory.put(memoryVariableAfter, jsonNode);
     }
 

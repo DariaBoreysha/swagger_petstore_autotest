@@ -28,15 +28,4 @@ public class StringUtil {
         }
         return request;
     }
-
-    public static JsonNode convertStringToJsonNode(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode;
-        try {
-            jsonNode = objectMapper.readTree(json);
-        } catch (JsonProcessingException e) {
-            throw new AtStringUtilException(e);
-        }
-        return jsonNode;
-    }
 }

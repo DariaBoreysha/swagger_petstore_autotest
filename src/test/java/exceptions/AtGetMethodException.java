@@ -1,8 +1,8 @@
 package exceptions;
 
-public class AtGetMethodException extends AtException{
+public class AtGetMethodException extends AtException {
 
-    public AtGetMethodException(Throwable cause){
+    public AtGetMethodException(Throwable cause) {
         super(cause);
     }
 }
