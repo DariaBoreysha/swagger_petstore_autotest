@@ -50,10 +50,10 @@ public class Get {
     private void composeRequest() {
         request = new HttpGet(url);
         addDefaultHeaders(request);
-        if (!(endpoint == null) && !(pathParameterValue == null)) {
+        if (endpoint != null && pathParameterValue != null) {
             addPathParameter();
         }
-        if (!(queryParameterName == null) && !(queryParameterValue == null)) {
+        if (queryParameterName != null && queryParameterValue != null) {
             addQueryParameter();
         }
     }
