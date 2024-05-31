@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class AddNewPetSteps extends BaseSteps {
 
     @And("формируем JSON на основе шаблона {string} и сохраняем в Memory как {string}")
-    public void formRequestBody(
+    public void composeRequestBody(
             String fileSampleName,
             String memoryVariableName,
             DataTable table
