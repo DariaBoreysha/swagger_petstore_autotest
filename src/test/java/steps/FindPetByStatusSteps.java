@@ -14,19 +14,19 @@ public class FindPetByStatusSteps extends BaseSteps {
             String parameterName,
             String parameterValue,
             String url,
-            String memoryVariableName
+            String memoryKeyName
     ) {
         HttpResponse response = httpClient.methodGet()
                 .setUrl(url).setQueryParameter(parameterName, parameterValue).sendRequest();
-        Memory.put(memoryVariableName, response);
+        Memory.put(memoryKeyName, response);
     }
 
     @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что структура тела JSON соответствует JSON schema : {string}")
     public void checkResponseAgainstJsonSchema(
-            String jsonNodeVariableName,
+            String jsonNodeMemoryKey,
             String jsonSchemaFileName
     ) {
-        JsonNode jsonBody = Memory.asJsonNode(jsonNodeVariableName);
+        JsonNode jsonBody = Memory.asJsonNode(jsonNodeMemoryKey);
         JsonSchemaValidator schemaValidator = new JsonSchemaValidator();
         schemaValidator.validate(jsonBody, jsonSchemaFileName);
     }

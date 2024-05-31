@@ -19,43 +19,43 @@ public class AddNewPetSteps extends BaseSteps {
     @And("формируем JSON на основе шаблона {string} и сохраняем в Memory как {string}")
     public void composeRequestBody(
             String fileSampleName,
-            String memoryVariableName,
+            String memoryKeyName,
             DataTable table
     ) {
         HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
         String requestBody = StringUtil.composeRequest(fileSampleName, map);
-        Memory.put(memoryVariableName, requestBody);
+        Memory.put(memoryKeyName, requestBody);
     }
 
     @When("отправляем POST запрос c телом из Memory: {string} на {string} и сохраняем ответ в Memory как {string}")
     public void sendPostRequest(
-            String memoryRequestVariableName,
+            String requestMemoryKey,
             String url,
-            String memoryResponseVariableName
+            String responseMemoryKey
     ) {
-        String requestBody = Memory.asString(memoryRequestVariableName);
+        String requestBody = Memory.asString(requestMemoryKey);
         HttpResponse response = httpClient.methodPost().sendRequest(url, requestBody);
-        Memory.put(memoryResponseVariableName, response);
+        Memory.put(responseMemoryKey, response);
     }
 
     @And("извлекаем тело ответа из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
-    public void responseToString(
-            String memoryVariableAsHttpResponse,
-            String memoryVariableAsJsonNode
+    public void convertResponseToJsonNode(
+            String httpResponseMemoryKey,
+            String jsonNodeMemoryKey
     ) {
-        HttpResponse response = Memory.asHttpResponse(memoryVariableAsHttpResponse);
+        HttpResponse response = Memory.asHttpResponse(httpResponseMemoryKey);
         JsonNode jsonNode = HttpUtil.convertHttpResponseToJsonNode(response);
-        Memory.put(memoryVariableAsJsonNode, jsonNode);
+        Memory.put(jsonNodeMemoryKey, jsonNode);
     }
 
     @And("извлекаем тело запроса из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
-    public void requestToJsonNode(
-            String memoryVariableAsString,
-            String memoryVariableAsJsonNode
+    public void convertRequestToJsonNode(
+            String stringMemoryKey,
+            String jsonNodeMemoryKey
     ) {
-        String body = Memory.asString(memoryVariableAsString);
+        String body = Memory.asString(stringMemoryKey);
         JsonNode jsonNode = JsonNodeUtil.convertStringToJsonNode(body);
-        Memory.put(memoryVariableAsJsonNode, jsonNode);
+        Memory.put(jsonNodeMemoryKey, jsonNode);
     }
 
     @And("проверяем, что JsonNode из Memory: {string} соответствует  JsonNode из Memory: {string}")
@@ -70,13 +70,13 @@ public class AddNewPetSteps extends BaseSteps {
     public void sendGetRequestWithPathParam(
             String url,
             String endpoint,
-            String pathParameterMemoryVariable,
-            String memoryVariableName
+            String pathParameterMemoryKey,
+            String memoryKeyName
     ) {
-        String pathParameterValue = Memory.asString(pathParameterMemoryVariable);
+        String pathParameterValue = Memory.asString(pathParameterMemoryKey);
         HttpResponse response = httpClient.methodGet()
                 .setUrl(url).setEndpoint(endpoint)
                 .setPathParameter(pathParameterValue).sendRequest();
-        Memory.put(memoryVariableName, response);
+        Memory.put(memoryKeyName, response);
     }
 }

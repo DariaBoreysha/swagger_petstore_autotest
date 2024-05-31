@@ -32,20 +32,20 @@ public class CommonSteps {
 
     @And("конвертируем ответ из Memory: {string} в JsonNode и сохраняем как {string}")
     public void convertResponseToJsonNode(
-            String responseVariableName,
-            String jsonNodeVariableName
+            String responseMemoryKey,
+            String jsonNodeMemoryKey
     ) {
-        HttpResponse response = Memory.asHttpResponse(responseVariableName);
+        HttpResponse response = Memory.asHttpResponse(responseMemoryKey);
         JsonNode responseJsonBody = HttpUtil.convertHttpResponseToJsonNode(response);
-        Memory.put(jsonNodeVariableName, responseJsonBody);
+        Memory.put(jsonNodeMemoryKey, responseJsonBody);
     }
 
     @And("извлекаем тело JSON из Memory переменной : {string} и проверяем соответствие фактических значений полей ожидаемым")
     public void checkActualFieldValueMatchesExpected(
-            String memoryVariableName,
+            String memoryKeyName,
             DataTable table
     ) {
-        JsonNode jsonResponseBody = Memory.asJsonNode(memoryVariableName);
+        JsonNode jsonResponseBody = Memory.asJsonNode(memoryKeyName);
         HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
         PetstoreAssertion assertion = new PetstoreAssertion();
         for (String key : map.keySet()) {
@@ -56,11 +56,11 @@ public class CommonSteps {
 
     @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что значение поля {string} соответствует значению {string} запроса")
     public void checkStatusCorrectnessInServerResponse(
-            String jsonNodeVariableName,
+            String jsonNodeMemoryKey,
             String fieldName,
             String expectedStatusValue
     ) {
-        JsonNode responseJsonBody = Memory.asJsonNode(jsonNodeVariableName);
+        JsonNode responseJsonBody = Memory.asJsonNode(jsonNodeMemoryKey);
         String[] fieldExpectedValues = expectedStatusValue.split(",");
         PetstoreAssertion assertion = new PetstoreAssertion();
         assertion.assertBodyArrayFieldValuesAreCorrect(responseJsonBody, fieldName, fieldExpectedValues);
