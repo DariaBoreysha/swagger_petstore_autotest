@@ -55,7 +55,7 @@ public class CommonSteps {
     }
 
     @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что значение поля {string} соответствует значению {string} запроса")
-    public void checkingStatusCorrectnessInServerResponse(
+    public void checkStatusCorrectnessInServerResponse(
             String jsonNodeVariableName,
             String fieldName,
             String expectedStatusValue

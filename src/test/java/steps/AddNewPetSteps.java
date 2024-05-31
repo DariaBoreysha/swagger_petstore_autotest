@@ -59,9 +59,9 @@ public class AddNewPetSteps extends BaseSteps {
     }
 
     @And("проверяем, что JsonNode из Memory: {string} соответствует  JsonNode из Memory: {string}")
-    public void toJsonNode(String actual, String expected) {
-        JsonNode expectedNode = Memory.asJsonNode(expected);
-        JsonNode actualNode = Memory.asJsonNode(actual);
+    public void verifyResponseIsEqualToRequest(String actualMemoryKey, String expectedMemoryKey) {
+        JsonNode expectedNode = Memory.asJsonNode(expectedMemoryKey);
+        JsonNode actualNode = Memory.asJsonNode(actualMemoryKey);
         AssertionsForClassTypes.assertThat(actualNode).isEqualTo(expectedNode);
     }
 
