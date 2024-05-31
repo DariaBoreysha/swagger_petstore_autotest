@@ -3,10 +3,12 @@ package steps;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpResponse;
 import org.assertj.core.api.AssertionsForClassTypes;
 import stephelper.Memory;
+import stephelper.TestDataGenerator;
 import utils.DataTableConverter;
 import utils.HttpUtil;
 import utils.JsonNodeUtil;
@@ -72,5 +74,21 @@ public class AddNewPetSteps extends BaseSteps {
                 .setUrl(url).setEndpoint(endpoint)
                 .setPathParameter(pathParameterValue).sendRequest();
         Memory.put(memoryKeyName, response);
+    }
+
+    @Given("отправляем DELETE запрос на {string} эндпойнт {string} с path параметром")
+    public void sendDeleteRequest(
+            String url,
+            String endpoint,
+            DataTable table
+    ) {
+        HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
+        String pathParameterValue = Memory.review(map.get("pet_entity_id"));
+        HttpResponse response = httpClient.methodDelete().sendRequest(url, endpoint, pathParameterValue);
+        String flag = map.get("put_response_to_memory");
+        String memoryKey = map.get("memory_key_name");
+        if(flag.equals("true")){
+            Memory.put(memoryKey, response);
+        }
     }
 }
