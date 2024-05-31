@@ -39,20 +39,14 @@ public class AddNewPetSteps extends BaseSteps {
     }
 
     @And("извлекаем тело ответа из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
-    public void convertResponseToJsonNode(
-            String httpResponseMemoryKey,
-            String jsonNodeMemoryKey
-    ) {
+    public void convertResponseToJsonNode(String httpResponseMemoryKey, String jsonNodeMemoryKey) {
         HttpResponse response = Memory.asHttpResponse(httpResponseMemoryKey);
         JsonNode jsonNode = HttpUtil.convertHttpResponseToJsonNode(response);
         Memory.put(jsonNodeMemoryKey, jsonNode);
     }
 
     @And("извлекаем тело запроса из Memory: {string}, конвертируем в jsonNode и сохраняем в Memory как {string}")
-    public void convertRequestToJsonNode(
-            String stringMemoryKey,
-            String jsonNodeMemoryKey
-    ) {
+    public void convertRequestToJsonNode(String stringMemoryKey, String jsonNodeMemoryKey) {
         String body = Memory.asString(stringMemoryKey);
         JsonNode jsonNode = JsonNodeUtil.convertStringToJsonNode(body);
         Memory.put(jsonNodeMemoryKey, jsonNode);

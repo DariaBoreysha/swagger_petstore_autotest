@@ -22,10 +22,7 @@ public class FindPetByStatusSteps extends BaseSteps {
     }
 
     @And("извлекаем тело JSON из Memory переменной : {string} и проверяем, что структура тела JSON соответствует JSON schema : {string}")
-    public void checkResponseAgainstJsonSchema(
-            String jsonNodeMemoryKey,
-            String jsonSchemaFileName
-    ) {
+    public void checkResponseAgainstJsonSchema(String jsonNodeMemoryKey, String jsonSchemaFileName) {
         JsonNode jsonBody = Memory.asJsonNode(jsonNodeMemoryKey);
         JsonSchemaValidator schemaValidator = new JsonSchemaValidator();
         schemaValidator.validate(jsonBody, jsonSchemaFileName);

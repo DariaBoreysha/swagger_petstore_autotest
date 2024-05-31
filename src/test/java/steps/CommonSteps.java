@@ -31,20 +31,14 @@ public class CommonSteps {
     }
 
     @And("конвертируем ответ из Memory: {string} в JsonNode и сохраняем как {string}")
-    public void convertResponseToJsonNode(
-            String responseMemoryKey,
-            String jsonNodeMemoryKey
-    ) {
+    public void convertResponseToJsonNode(String responseMemoryKey, String jsonNodeMemoryKey) {
         HttpResponse response = Memory.asHttpResponse(responseMemoryKey);
         JsonNode responseJsonBody = HttpUtil.convertHttpResponseToJsonNode(response);
         Memory.put(jsonNodeMemoryKey, responseJsonBody);
     }
 
     @And("извлекаем тело JSON из Memory переменной : {string} и проверяем соответствие фактических значений полей ожидаемым")
-    public void checkActualFieldValueMatchesExpected(
-            String memoryKeyName,
-            DataTable table
-    ) {
+    public void checkActualFieldValueMatchesExpected(String memoryKeyName, DataTable table) {
         JsonNode jsonResponseBody = Memory.asJsonNode(memoryKeyName);
         HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
         PetstoreAssertion assertion = new PetstoreAssertion();
