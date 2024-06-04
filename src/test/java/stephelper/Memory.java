@@ -26,6 +26,14 @@ public class Memory {
         map.put(key, value);
     }
 
+    public static void putWithFlagCheck(HashMap<String, String> flagMap, Object value) {
+        boolean flag = Boolean.getBoolean(flagMap.get("is_memory_put"));
+        String memoryKey = flagMap.get("memory_key_name");
+        if(flag){
+            Memory.put(memoryKey, value);
+        }
+    }
+
     public static void clear() {
         map.clear();
     }

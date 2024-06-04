@@ -62,7 +62,7 @@ public class AddNewPetSteps extends BaseSteps {
     }
 
 
-    @And("отправляем GET запрос на {string} эндпойнт {string} с path параметром равным {string} и сохраняем тело ответа в Memory как {string}")
+    @And("отправляем GET запрос на {string} эндпойнт {string} с path параметром {string} и сохраняем тело ответа в Memory как {string}")
     public void sendGetRequestWithPathParam(
             String url,
             String endpoint,
@@ -76,19 +76,16 @@ public class AddNewPetSteps extends BaseSteps {
         Memory.put(memoryKeyName, response);
     }
 
-    @Given("отправляем DELETE запрос на {string} эндпойнт {string} с path параметром")
+    @Given("отправляем DELETE запрос на {string} эндпойнт {string} с path параметром {string}")
     public void sendDeleteRequest(
             String url,
             String endpoint,
+            String pathParameterName,
             DataTable table
     ) {
-        HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
-        String pathParameterValue = Memory.review(map.get("pet_entity_id"));
+        HashMap<String, String> map = DataTableConverter.toHashMap(table, "variable");
+        String pathParameterValue = Memory.review(map.get(pathParameterName));
         HttpResponse response = httpClient.methodDelete().sendRequest(url, endpoint, pathParameterValue);
-        String flag = map.get("put_response_to_memory");
-        String memoryKey = map.get("memory_key_name");
-        if(flag.equals("true")){
-            Memory.put(memoryKey, response);
-        }
+        Memory.putWithFlagCheck(map, response);
     }
 }
