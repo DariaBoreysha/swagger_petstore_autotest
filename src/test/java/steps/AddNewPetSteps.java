@@ -8,7 +8,6 @@ import io.cucumber.java.en.When;
 import org.apache.http.HttpResponse;
 import org.assertj.core.api.AssertionsForClassTypes;
 import stephelper.Memory;
-import stephelper.TestDataGenerator;
 import utils.DataTableConverter;
 import utils.HttpUtil;
 import utils.JsonNodeUtil;
