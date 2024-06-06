@@ -26,14 +26,6 @@ public class Memory {
         map.put(key, value);
     }
 
-    public static void putWithFlagCheck(HashMap<String, String> flagMap, Object value) {
-        boolean flag = Boolean.getBoolean(flagMap.get("is_memory_put"));
-        String memoryKey = flagMap.get("memory_key_name");
-        if(flag){
-            Memory.put(memoryKey, value);
-        }
-    }
-
     public static void clear() {
         map.clear();
     }
@@ -76,8 +68,7 @@ public class Memory {
     private static String defineMemoryVariable(String memoryVariable) {
         if (map.containsKey(memoryVariable)) {
             return (String) map.get(memoryVariable);
-        }
-        else {
+        } else {
             throw new AtMemoryException("'" + memoryVariable + "'" + " is ABSENT in MEMORY");
         }
     }

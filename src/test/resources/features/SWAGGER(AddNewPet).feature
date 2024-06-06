@@ -6,11 +6,9 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
 
   @SWAGGER-2.1 @positive
   Scenario Outline: Добавление записи о питомце с уникальным id
-    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" с path параметром "pet_entity_id"
-      | variable        | value                    |
-      | pet_entity_id   | GENERATE : pet_entity_id |
-      | is_memory_put   | false                    |
-      | memory_key_name | -                        |
+    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" с path параметром "pet_entity_id" и сохраняем ответ в Memory как "delete_body"
+      | variable      | value                    |
+      | pet_entity_id | GENERATE : pet_entity_id |
     And формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
       | field         | value                                |
       | pet_entity_id | MEMORY : pet_entity_id               |

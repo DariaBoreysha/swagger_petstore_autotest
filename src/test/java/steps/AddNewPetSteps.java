@@ -75,16 +75,17 @@ public class AddNewPetSteps extends BaseSteps {
         Memory.put(memoryKeyName, response);
     }
 
-    @Given("отправляем DELETE запрос на {string} эндпойнт {string} с path параметром {string}")
+    @Given("отправляем DELETE запрос на {string} эндпойнт {string} с path параметром {string} и сохраняем ответ в Memory как {string}")
     public void sendDeleteRequest(
             String url,
             String endpoint,
             String pathParameterName,
+            String memoryKeyName,
             DataTable table
     ) {
         HashMap<String, String> map = DataTableConverter.toHashMap(table, "variable");
         String pathParameterValue = Memory.review(map.get(pathParameterName));
         HttpResponse response = httpClient.methodDelete().sendRequest(url, endpoint, pathParameterValue);
-        Memory.putWithFlagCheck(map, response);
+        Memory.put(memoryKeyName, response);
     }
 }
