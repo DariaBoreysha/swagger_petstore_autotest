@@ -1,6 +1,6 @@
 package methods;
 
-import exceptions.AtHttpClientException;
+import exceptions.AtGetMethodException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -16,60 +16,88 @@ import java.util.Arrays;
 
 public class Get {
 
-    public HttpResponse sendRequest(
-            String url,
-            String parameterName,
-            String parameterValue
+    private static HttpGet request;
+    private String url;
+    private String endpoint;
+    private String pathParameterValue;
+    private String queryParameterName;
+    private String queryParameterValue;
+
+    public Get setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+
+    public Get setPathParameter(String pathParameter) {
+        this.pathParameterValue = pathParameter;
+        return this;
+    }
+
+    public Get setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+        return this;
+    }
+
+    public Get setQueryParameter(
+            String queryParameterName,
+            String queryParameterValue
     ) {
-        HttpGet request = composeRequest(
-                url,
-                parameterName,
-                parameterValue
-        );
+        this.queryParameterValue = queryParameterValue;
+        this.queryParameterName = queryParameterName;
+        return this;
+    }
+
+    private void composeRequest() {
+        request = new HttpGet(url);
+        addDefaultHeaders(request);
+        if (endpoint != null && pathParameterValue != null) {
+            addPathParameter();
+        }
+        if (queryParameterName != null && queryParameterValue != null) {
+            addQueryParameter();
+        }
+    }
+
+    private void addQueryParameter() {
+        URI uri;
+        try {
+            uri = new URIBuilder(request.getURI())
+                    .addParameter(queryParameterName, queryParameterValue).build();
+        } catch (URISyntaxException e) {
+            throw new AtGetMethodException(e);
+        }
+        request.setURI(uri);
+    }
+
+    private void addPathParameter() {
+        URI uri;
+        try {
+            uri = new URIBuilder(request.getURI())
+                    .setPath(endpoint + pathParameterValue).build();
+        } catch (URISyntaxException e) {
+            throw new AtGetMethodException(e);
+        }
+        request.setURI(uri);
+    }
+
+    private void addDefaultHeaders(HttpGet request) {
+        request.addHeader("accept", "application/json");
+    }
+
+    public HttpResponse sendRequest() {
+        composeRequest();
         logRequest(request.getURI(), request.getAllHeaders());
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         HttpResponse response;
         try {
             response = httpClient.execute(request);
         } catch (IOException e) {
-            throw new AtHttpClientException(e);
+            throw new AtGetMethodException(e);
         }
         return response;
     }
 
-    public HttpGet composeRequest(
-            String url,
-            String parameterName,
-            String parameterValue
-    ) {
-        HttpGet request = new HttpGet(url);
-        addParameter(request, parameterName, parameterValue);
-        addDefaultHeaders(request);
-        return request;
-    }
-
-    private HttpGet addDefaultHeaders(HttpGet request) {
-        request.addHeader("accept", "application/json");
-        return request;
-    }
-
-    private HttpGet addParameter(
-            HttpGet request,
-            String parameterName,
-            String parameterValue
-    ) {
-        URI uri;
-        try {
-            uri = new URIBuilder(request.getURI())
-                    .addParameter(parameterName, parameterValue).build();
-        } catch (URISyntaxException e) {
-            throw new AtHttpClientException(e);
-        }
-        request.setURI(uri);
-        return request;
-    }
-
-    private static void logRequest(URI uri, Header[] headers) {
+    private void logRequest(URI uri, Header[] headers) {
         Log.log("GET request: " + System.lineSeparator()
                 + "URL: " + uri + System.lineSeparator()
                 + "headers: " + Arrays.toString(headers)

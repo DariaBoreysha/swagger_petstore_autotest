@@ -1,6 +1,6 @@
 package methods;
 
-import exceptions.AtHttpClientException;
+import exceptions.AtPostMethodException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -26,7 +26,7 @@ public class Post {
         try {
             response = httpClient.execute(request);
         } catch (IOException e) {
-            throw new AtHttpClientException(e);
+            throw new AtPostMethodException(e);
         }
         return response;
     }
