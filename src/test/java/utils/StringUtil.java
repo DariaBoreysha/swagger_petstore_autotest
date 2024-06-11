@@ -30,13 +30,18 @@ public class StringUtil {
     }
 
     private static String setNullValueForField(String request, String placeholder) {
-        String placeholderString = "\"" + placeholder + "\"";
-        int indexOfPlaceholderStart = request.indexOf(placeholderString);
+        String searchString = "\"" + placeholder + "\"";
+        int indexOfStringField = request.indexOf(searchString);
+        int indexOfPlaceholderStart;
+        if (indexOfStringField != -1) {
+            indexOfPlaceholderStart = indexOfStringField;
+        } else {
+            indexOfPlaceholderStart = request.indexOf(placeholder);
+            searchString = placeholder;
+        }
         String beforePlaceholder = request.substring(0, indexOfPlaceholderStart);
-        int indexOfPlaceholderEnd = indexOfPlaceholderStart + placeholderString.length();
+        int indexOfPlaceholderEnd = indexOfPlaceholderStart + searchString.length();
         String afterPlaceholder = request.substring(indexOfPlaceholderEnd);
         return (beforePlaceholder + null + afterPlaceholder);
     }
-
-
 }

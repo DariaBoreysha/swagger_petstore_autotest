@@ -78,12 +78,12 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | field         | value                    |
       | pet_entity_id | GENERATE : pet_entity_id |
       | category_id   | GENERATE : id            |
-      | category_name | Animal                   |
+      | category_name | GENERATE : category_name |
       | pet_name      | null                     |
       | photourls     | null                     |
       | tag_id        | GENERATE : id            |
-      | tag_name      | Pet                      |
-      | status        | available                |
+      | tag_name      | GENERATE : tag_name      |
+      | status        | <status>                 |
     When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
@@ -94,5 +94,7 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | type    | unknown  |
 
     Examples:
-      | code | phrase        |
-      | 405  | Invalid Input |
+      | status    | code | phrase        |
+      | available | 405  | Invalid Input |
+      | pending   | 405  | Invalid Input |
+      | sold      | 405  | Invalid Input |
