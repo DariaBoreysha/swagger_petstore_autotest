@@ -10,15 +10,15 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | variable      | value                    |
       | pet_entity_id | GENERATE : pet_entity_id |
     And формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
-      | field         | value                                |
-      | pet_entity_id | MEMORY : pet_entity_id               |
-      | category_id   | GENERATE : id                        |
-      | category_name | Animal                               |
-      | pet_name      | Rocky                                |
-      | photourls     | img/test/dog.jpeg,img/test/dog1.jpeg |
-      | tag_id        | GENERATE : id                        |
-      | tag_name      | Pet                                  |
-      | status        | <status>                             |
+      | field         | value                  |
+      | pet_entity_id | MEMORY : pet_entity_id |
+      | category_id   | GENERATE : id          |
+      | category_name | Animal                 |
+      | pet_name      | Rocky                  |
+      | photourls     | [img.png","img.png]    |
+      | tag_id        | GENERATE : id          |
+      | tag_name      | Pet                    |
+      | status        | <status>               |
     When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And извлекаем тело ответа из Memory: "response_entity", конвертируем в jsonNode и сохраняем в Memory как "response_as_jsonNode"

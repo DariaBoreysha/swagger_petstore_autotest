@@ -5,7 +5,7 @@
     "name": "#{placeholder_category_name}"
   },
   "name": "#{placeholder_pet_name}",
-  "photoUrls": "#{placeholder_photourls}",
+  "photoUrls": #{placeholder_photourls},
   "tags": [
     {
       "id": #{placeholder_tag_id},
