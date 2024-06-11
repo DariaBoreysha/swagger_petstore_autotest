@@ -1,6 +1,7 @@
 package utils;
 
 import constants.Constants;
+import org.apache.commons.lang3.RandomStringUtils;
 import stephelper.Memory;
 
 import java.util.HashMap;
@@ -12,6 +13,16 @@ public class StringUtil {
 
     public static String generateStringOfDigits(long upperBorder) {
         return String.valueOf((long) (Math.random() * (upperBorder - 1)) + 1);
+    }
+
+    public static String generateStringArray() {
+        StringBuilder data = new StringBuilder("[");
+        for (int i = 0; i < 3; i++) {
+            data.append("\"")
+                    .append(RandomStringUtils.random(5, true, true))
+                    .append("\"" + ",");
+        }
+        return data.deleteCharAt(data.length() - 1).append("]").toString();
     }
 
     public static String composeRequest(String fileSampleName, HashMap<String, String> map) {
