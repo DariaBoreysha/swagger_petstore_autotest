@@ -19,9 +19,24 @@ public class StringUtil {
         for (String key : map.keySet()) {
             String placeholder = PREFIX + key + POSTFIX;
             if (request.contains(placeholder)) {
-                request = request.replace(placeholder, Memory.review(map.get(key)));
+                if (Memory.review(map.get(key)).equals("null")) {
+                    request = setNullValueForField(request, placeholder);
+                } else {
+                    request = request.replace(placeholder, Memory.review(map.get(key)));
+                }
             }
         }
         return request;
     }
+
+    private static String setNullValueForField(String request, String placeholder) {
+        String placeholderString = "\"" + placeholder + "\"";
+        int indexOfPlaceholderStart = request.indexOf(placeholderString);
+        String beforePlaceholder = request.substring(0, indexOfPlaceholderStart);
+        int indexOfPlaceholderEnd = indexOfPlaceholderStart + placeholderString.length();
+        String afterPlaceholder = request.substring(indexOfPlaceholderEnd);
+        return (beforePlaceholder + null + afterPlaceholder);
+    }
+
+
 }

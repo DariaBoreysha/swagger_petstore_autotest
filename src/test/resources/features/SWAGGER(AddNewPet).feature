@@ -71,3 +71,28 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | available | 200  | OK     |
       | pending   | 200  | OK     |
       | sold      | 200  | OK     |
+
+  @SWAGGER-2.2 @negative
+  Scenario Outline: Отправка тела запроса с незаполненными обязательными полями
+    Given формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
+      | field         | value                    |
+      | pet_entity_id | GENERATE : pet_entity_id |
+      | category_id   | GENERATE : id            |
+      | category_name | Animal                   |
+      | pet_name      | null                     |
+      | photourls     | null                     |
+      | tag_id        | GENERATE : id            |
+      | tag_name      | Pet                      |
+      | status        | available                |
+    When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
+    Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+    And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
+    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
+      | field   | value    |
+      | code    | <code>   |
+      | message | <phrase> |
+      | type    | unknown  |
+
+    Examples:
+      | code | phrase        |
+      | 405  | Invalid Input |
