@@ -21,10 +21,12 @@ public class TestDataGenerator {
     }
 
     private static String generateStringArray(int length) {
-        String[] array = new String[length];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = RandomStringUtils.random(5, true, true);
+        StringBuilder data = new StringBuilder("[");
+        for (int i = 0; i < length; i++) {
+            data.append("\"");
+            data.append(RandomStringUtils.random(5, true, true));
+            data.append("\"" + ",");
         }
-        return Arrays.toString(array);
+        return data.deleteCharAt(data.length()-1).append("]").toString();
     }
 }
