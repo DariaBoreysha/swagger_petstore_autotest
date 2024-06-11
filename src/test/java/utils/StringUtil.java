@@ -31,17 +31,16 @@ public class StringUtil {
 
     private static String setNullValueForField(String request, String placeholder) {
         String searchString = "\"" + placeholder + "\"";
-        int indexOfStringField = request.indexOf(searchString);
         int indexOfPlaceholderStart;
-        if (indexOfStringField != -1) {
-            indexOfPlaceholderStart = indexOfStringField;
+        if (request.contains(searchString)) {
+            indexOfPlaceholderStart = request.indexOf(searchString);
         } else {
             indexOfPlaceholderStart = request.indexOf(placeholder);
             searchString = placeholder;
         }
-        String beforePlaceholder = request.substring(0, indexOfPlaceholderStart);
+        String stringBeforePlaceholder = request.substring(0, indexOfPlaceholderStart);
         int indexOfPlaceholderEnd = indexOfPlaceholderStart + searchString.length();
-        String afterPlaceholder = request.substring(indexOfPlaceholderEnd);
-        return (beforePlaceholder + null + afterPlaceholder);
+        String stringAfterPlaceholder = request.substring(indexOfPlaceholderEnd);
+        return (stringBeforePlaceholder + null + stringAfterPlaceholder);
     }
 }
