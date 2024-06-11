@@ -3,8 +3,6 @@ package stephelper;
 import org.apache.commons.lang3.RandomStringUtils;
 import utils.StringUtil;
 
-import java.util.Arrays;
-
 public class TestDataGenerator {
 
     public static String generate(String fieldName) {
@@ -23,10 +21,10 @@ public class TestDataGenerator {
     private static String generateStringArray(int length) {
         StringBuilder data = new StringBuilder("[");
         for (int i = 0; i < length; i++) {
-            data.append("\"");
-            data.append(RandomStringUtils.random(5, true, true));
-            data.append("\"" + ",");
+            data.append("\"")
+                    .append(RandomStringUtils.random(5, true, true))
+                    .append("\"" + ",");
         }
-        return data.deleteCharAt(data.length()-1).append("]").toString();
+        return data.deleteCharAt(data.length() - 1).append("]").toString();
     }
 }
