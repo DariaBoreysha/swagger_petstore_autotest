@@ -4,7 +4,9 @@ import constants.Constants;
 import org.apache.commons.lang3.RandomStringUtils;
 import stephelper.Memory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 public class StringUtil {
 
@@ -16,13 +18,11 @@ public class StringUtil {
     }
 
     public static String generateStringArray() {
-        StringBuilder data = new StringBuilder("[");
-        for (int i = 0; i < 3; i++) {
-            data.append("\"")
-                    .append(RandomStringUtils.random(5, true, true))
-                    .append("\"" + ",");
-        }
-        return data.deleteCharAt(data.length() - 1).append("]").toString();
+        ArrayList<String> randomStrings = new ArrayList<>();
+        IntStream.range(0, 3)
+                .forEach(iteration -> randomStrings.add(RandomStringUtils.random(5, true, true)));
+        String data = "[\"" + String.join("\",\"", randomStrings) + "\"]";
+        return data;
     }
 
     public static String composeRequest(String fileSampleName, HashMap<String, String> map) {
