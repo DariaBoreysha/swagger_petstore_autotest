@@ -13,7 +13,6 @@ import utils.HttpUtil;
 import utils.JsonNodeUtil;
 import utils.StringUtil;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class AddNewPetSteps extends BaseSteps {
