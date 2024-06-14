@@ -1,9 +1,12 @@
 package utils;
 
 import constants.Constants;
+import org.apache.commons.lang3.RandomStringUtils;
 import stephelper.Memory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 public class StringUtil {
 
@@ -14,14 +17,41 @@ public class StringUtil {
         return String.valueOf((long) (Math.random() * (upperBorder - 1)) + 1);
     }
 
+    public static String generateStringArray() {
+        ArrayList<String> randomStrings = new ArrayList<>();
+        IntStream.range(0, 3)
+                .forEach(iteration -> randomStrings.add(RandomStringUtils.random(5, true, true)));
+        String data = "[\"" + String.join("\",\"", randomStrings) + "\"]";
+        return data;
+    }
+
     public static String composeRequest(String fileSampleName, HashMap<String, String> map) {
         String request = FileUtil.read(Constants.SAMPLES_FOLDER + fileSampleName);
         for (String key : map.keySet()) {
             String placeholder = PREFIX + key + POSTFIX;
             if (request.contains(placeholder)) {
-                request = request.replace(placeholder, Memory.review(map.get(key)));
+                if (Memory.review(map.get(key)).equals("null")) {
+                    request = setNullValueForField(request, placeholder);
+                } else {
+                    request = request.replace(placeholder, Memory.review(map.get(key)));
+                }
             }
         }
         return request;
+    }
+
+    private static String setNullValueForField(String request, String placeholder) {
+        String searchString = "\"" + placeholder + "\"";
+        int indexOfPlaceholderStart;
+        if (request.contains(searchString)) {
+            indexOfPlaceholderStart = request.indexOf(searchString);
+        } else {
+            indexOfPlaceholderStart = request.indexOf(placeholder);
+            searchString = placeholder;
+        }
+        String stringBeforePlaceholder = request.substring(0, indexOfPlaceholderStart);
+        int indexOfPlaceholderEnd = indexOfPlaceholderStart + searchString.length();
+        String stringAfterPlaceholder = request.substring(indexOfPlaceholderEnd);
+        return (stringBeforePlaceholder + null + stringAfterPlaceholder);
     }
 }

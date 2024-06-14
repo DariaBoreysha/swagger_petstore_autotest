@@ -12,7 +12,7 @@ public class TestDataGenerator {
             case "pet_name", "tag_name", "category_name":
                 return RandomStringUtils.random(5, true, false);
             case "photourls":
-                return RandomStringUtils.random(10, true, true);
+                return StringUtil.generateStringArray();
             default:
                 return StringUtil.generateStringOfDigits(10);
         }
