@@ -72,7 +72,7 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | pending   | 200  | OK     |
       | sold      | 200  | OK     |
 
-  @SWAGGER-2.2 @negative
+  @SWAGGER-2.3 @negative
   Scenario Outline: Отправка тела запроса с незаполненными обязательными полями
     Given формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
       | field         | value                    |
