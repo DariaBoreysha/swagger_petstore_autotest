@@ -88,10 +88,10 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
     And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
-      | field   | value    |
-      | code    | <code>   |
-      | message | <phrase> |
-      | type    | unknown  |
+      | field   | value         |
+      | code    | 405           |
+      | message | Invalid Input |
+      | type    | unknown       |
 
     Examples:
       | status    | code | phrase        |
@@ -115,10 +115,10 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
     And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
-      | field   | value    |
-      | code    | <code>   |
-      | message | <phrase> |
-      | type    | unknown  |
+      | field   | value         |
+      | code    | 405           |
+      | message | Invalid Input |
+      | type    | unknown       |
 
     Examples:
       | status  | code | phrase        |
@@ -142,7 +142,7 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
     And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
     And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
       | field   | value                  |
-      | code    | <code>                 |
+      | code    | 500                    |
       | message | something bad happened |
       | type    | unknown                |
 
