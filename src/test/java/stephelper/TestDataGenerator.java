@@ -3,8 +3,6 @@ package stephelper;
 import org.apache.commons.lang3.RandomStringUtils;
 import utils.StringUtil;
 
-import java.math.BigDecimal;
-
 public class TestDataGenerator {
 
     public static String generate(String fieldName) {
@@ -16,7 +14,7 @@ public class TestDataGenerator {
             case "photourls":
                 return StringUtil.generateStringArray();
             case "invalid_id":
-                return String.valueOf(new BigDecimal("9223372036854775808"));
+                return StringUtil.generateInvalidIdString();
             default:
                 return StringUtil.generateStringOfDigits(10);
         }
