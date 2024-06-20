@@ -17,6 +17,10 @@ public class StringUtil {
         return String.valueOf((long) (Math.random() * (upperBorder - 1)) + 1);
     }
 
+    public static String generateInvalidIdString() {
+        return "922337203685477580" + ((int) (Math.random() * (100 - 8)) + 8);
+    }
+
     public static String generateStringArray() {
         ArrayList<String> randomStrings = new ArrayList<>();
         IntStream.range(0, 3)

@@ -13,6 +13,8 @@ public class TestDataGenerator {
                 return RandomStringUtils.random(5, true, false);
             case "photourls":
                 return StringUtil.generateStringArray();
+            case "invalid_id":
+                return StringUtil.generateInvalidIdString();
             default:
                 return StringUtil.generateStringOfDigits(10);
         }

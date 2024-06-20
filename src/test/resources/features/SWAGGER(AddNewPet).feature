@@ -72,7 +72,7 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | pending   | 200  | OK     |
       | sold      | 200  | OK     |
 
-  @SWAGGER-2.2 @negative
+  @SWAGGER-2.3 @negative
   Scenario Outline: Отправка тела запроса с незаполненными обязательными полями
     Given формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
       | field         | value                    |
@@ -98,3 +98,56 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
       | available | 405  | Invalid Input |
       | pending   | 405  | Invalid Input |
       | sold      | 405  | Invalid Input |
+
+  @SWAGGER-2.4 @negative
+  Scenario Outline: Отправка тела запроса с некорректно заполненным полем status
+    Given формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
+      | field         | value                    |
+      | pet_entity_id | GENERATE : pet_entity_id |
+      | category_id   | GENERATE : id            |
+      | category_name | GENERATE : category_name |
+      | pet_name      | GENERATE : pet_name      |
+      | photourls     | GENERATE : photourls     |
+      | tag_id        | GENERATE : id            |
+      | tag_name      | GENERATE : tag_name      |
+      | status        | <status>                 |
+    When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
+    Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+    And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
+    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
+      | field   | value    |
+      | code    | <code>   |
+      | message | <phrase> |
+      | type    | unknown  |
+
+    Examples:
+      | status  | code | phrase        |
+      | created | 405  | Invalid Input |
+      | null    | 405  | Invalid Input |
+
+  @SWAGGER-2.5 @negative
+  Scenario Outline: Отправка тела запроса со значением id, превышающим максимально допустимое
+    Given формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
+      | field         | value                    |
+      | pet_entity_id | GENERATE : invalid_id    |
+      | category_id   | GENERATE : id            |
+      | category_name | GENERATE : category_name |
+      | pet_name      | GENERATE : pet_name      |
+      | photourls     | GENERATE : photourls     |
+      | tag_id        | GENERATE : id            |
+      | tag_name      | GENERATE : tag_name      |
+      | status        | <status>                 |
+    When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
+    Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+    And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
+    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
+      | field   | value                  |
+      | code    | <code>                 |
+      | message | something bad happened |
+      | type    | unknown                |
+
+    Examples:
+      | status    | code | phrase       |
+      | available | 500  | Server Error |
+      | pending   | 500  | Server Error |
+      | sold      | 500  | Server Error |
