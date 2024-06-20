@@ -18,7 +18,7 @@ public class StringUtil {
     }
 
     public static String generateInvalidIdString() {
-        return "922337203685477580" + ((long) (Math.random() * (100 - 8)) + 8);
+        return "922337203685477580" + ((int) (Math.random() * (10 - 8)) + 8);
     }
 
     public static String generateStringArray() {
