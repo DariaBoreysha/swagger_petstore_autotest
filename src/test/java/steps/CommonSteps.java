@@ -43,7 +43,7 @@ public class CommonSteps {
         HashMap<String, String> map = DataTableConverter.toHashMap(table, "field");
         PetstoreAssertion assertion = new PetstoreAssertion();
         for (String key : map.keySet()) {
-            assertion.assertBodyFieldValueIsCorrect(jsonResponseBody, key, map.get(key));
+            assertion.assertBodyFieldValueIsCorrect(jsonResponseBody, key, Memory.review(map.get(key)));
         }
         assertion.assertAll();
     }
