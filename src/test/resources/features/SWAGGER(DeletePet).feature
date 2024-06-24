@@ -17,7 +17,7 @@ Feature: [SWAGGER-3] Удаление записи о питомце
       | tag_name      | GENERATE : tag_name      |
       | status        | available                |
     And отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
-    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" с path параметром "pet_entity_id" и сохраняем ответ в Memory как "response_entity"
+    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "response_entity"
       | variable      | value                  |
       | pet_entity_id | MEMORY : pet_entity_id |
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
