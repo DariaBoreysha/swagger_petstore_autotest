@@ -51,8 +51,13 @@ Feature: [SWAGGER-3] Удаление записи о питомце
     When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "response_entity"
       | variable      | value   |
       | pet_entity_id | <value> |
-    And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+    And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
+    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
+      | field   | value    |
+      | code    | <code>   |
+      | message | <phrase> |
+      | type    | unknown  |
 
     Examples:
       | code | phrase              | value           |
