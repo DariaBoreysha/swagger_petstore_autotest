@@ -45,3 +45,16 @@ Feature: [SWAGGER-3] Удаление записи о питомце
     Examples:
       | code | phrase    |
       | 404  | Not Found |
+
+  @SWAGGER-3.3 @negative
+  Scenario Outline: Заполнение path параметра petId невалидным значением
+    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "response_entity"
+      | variable      | value   |
+      | pet_entity_id | <value> |
+    And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
+    Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+
+    Examples:
+      | code | phrase              | value           |
+      | 400  | Invalid ID supplied |                 |
+      | 400  | Invalid ID supplied | GENERATE : text |
