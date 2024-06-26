@@ -31,3 +31,17 @@ Feature: [SWAGGER-3] Удаление записи о питомце
     Examples:
       | code | phrase |
       | 200  | OK     |
+
+  @SWAGGER-3.2 @negative
+  Scenario Outline: Удаление записи о несуществующем питомце
+    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "delete_body"
+      | variable      | value                    |
+      | pet_entity_id | GENERATE : pet_entity_id |
+    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "response_entity"
+      | variable      | value                  |
+      | pet_entity_id | MEMORY : pet_entity_id |
+    Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+
+    Examples:
+      | code | phrase    |
+      | 404  | Not Found |
