@@ -60,6 +60,6 @@ Feature: [SWAGGER-3] Удаление записи о питомце
       | type    | unknown  |
 
     Examples:
-      | code | phrase              | value           |
-      | 400  | Invalid ID supplied |                 |
-      | 400  | Invalid ID supplied | GENERATE : text |
+      | code | phrase              | value                              |
+      | 400  | Invalid ID supplied |                                    |
+      | 400  | Invalid ID supplied | GENERATE : "invalid_pet_entity_id" |
