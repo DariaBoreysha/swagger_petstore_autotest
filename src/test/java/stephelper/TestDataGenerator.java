@@ -5,11 +5,11 @@ import utils.StringUtil;
 
 public class TestDataGenerator {
 
-    public static String generate(String fieldName) {
-        switch (fieldName) {
+    public static String generate(String valueType) {
+        switch (valueType) {
             case "id", "pet_entity_id":
                 return StringUtil.generateStringOfDigits(9223372036854775807L);
-            case "pet_name", "tag_name", "category_name":
+            case "pet_name", "tag_name", "category_name", "invalid_pet_entity_id":
                 return RandomStringUtils.random(5, true, false);
             case "photourls":
                 return StringUtil.generateStringArray();

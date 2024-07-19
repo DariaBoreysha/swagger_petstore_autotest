@@ -88,10 +88,10 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
     And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
-      | field   | value         |
-      | code    | 405           |
-      | message | Invalid Input |
-      | type    | unknown       |
+      | field   | value    |
+      | code    | <code>   |
+      | message | <phrase> |
+      | type    | unknown  |
 
     Examples:
       | status    | code | phrase        |
@@ -115,10 +115,10 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
     And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
-      | field   | value         |
-      | code    | 405           |
-      | message | Invalid Input |
-      | type    | unknown       |
+      | field   | value    |
+      | code    | <code>   |
+      | message | <phrase> |
+      | type    | unknown  |
 
     Examples:
       | status  | code | phrase        |
@@ -141,13 +141,13 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
     And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
-      | field   | value                  |
-      | code    | 500                    |
-      | message | something bad happened |
-      | type    | unknown                |
+      | field   | value     |
+      | code    | <code>    |
+      | message | <message> |
+      | type    | unknown   |
 
     Examples:
-      | status    | code | phrase       |
-      | available | 500  | Server Error |
-      | pending   | 500  | Server Error |
-      | sold      | 500  | Server Error |
+      | status    | code | phrase       | message                |
+      | available | 500  | Server Error | something bad happened |
+      | pending   | 500  | Server Error | something bad happened |
+      | sold      | 500  | Server Error | something bad happened |
