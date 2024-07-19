@@ -63,8 +63,8 @@ public class StringUtil {
     }
 
     public static String generateCurrentDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        return sdf.format(Calendar.getInstance().getTime());
+        return dateFormatter.format(Calendar.getInstance().getTime());
     }
 }
