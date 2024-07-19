@@ -24,7 +24,7 @@ Feature: [SWAGGER-4] Создание нового заказа
     And проверяем, что JsonNode из Memory: "response_as_jsonNode" соответствует JsonNode из Memory: "request_as_jsonNode"
     And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/store/order/" с path параметром "order_id" и сохраняем тело ответа в Memory как "get_response"
     And извлекаем тело ответа из Memory: "get_response", конвертируем в jsonNode и сохраняем в Memory как "get_response_as_jsonNode"
-    And проверяем, что JsonNode из Memory: "get_response_as_jsonNode" соответствует  JsonNode из Memory: "request_as_jsonNode"
+    And проверяем, что JsonNode из Memory: "get_response_as_jsonNode" соответствует JsonNode из Memory: "request_as_jsonNode"
 
     Examples:
       | status    | code | phrase |
