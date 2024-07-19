@@ -61,10 +61,10 @@ Feature: [SWAGGER-2] Создание новой записи о питомце
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And извлекаем тело ответа из Memory: "response_entity", конвертируем в jsonNode и сохраняем в Memory как "response_as_jsonNode"
     And извлекаем тело запроса из Memory: "request_body", конвертируем в jsonNode и сохраняем в Memory как "request_as_jsonNode"
-    And проверяем, что JsonNode из Memory: "response_as_jsonNode" соответствует  JsonNode из Memory: "request_as_jsonNode"
+    And проверяем, что JsonNode из Memory: "response_as_jsonNode" соответствует JsonNode из Memory: "request_as_jsonNode"
     And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" с path параметром "pet_entity_id" и сохраняем тело ответа в Memory как "get_response"
     And извлекаем тело ответа из Memory: "get_response", конвертируем в jsonNode и сохраняем в Memory как "get_response_as_jsonNode"
-    And проверяем, что JsonNode из Memory: "get_response_as_jsonNode" соответствует  JsonNode из Memory: "request_as_jsonNode"
+    And проверяем, что JsonNode из Memory: "get_response_as_jsonNode" соответствует JsonNode из Memory: "request_as_jsonNode"
 
     Examples:
       | status    | code | phrase |
