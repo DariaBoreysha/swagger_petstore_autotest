@@ -1,0 +1,8 @@
+{
+  "id": #{placeholder_order_id},
+  "petId": #{placeholder_pet_entity_id},
+  "quantity": #{placeholder_quantity},
+  "shipDate": "#{placeholder_ship_date}",
+  "status": "#{placeholder_status}",
+  "complete": #{placeholder_complete}
+}

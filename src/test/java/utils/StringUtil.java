@@ -4,8 +4,11 @@ import constants.Constants;
 import org.apache.commons.lang3.RandomStringUtils;
 import stephelper.Memory;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.TimeZone;
 import java.util.stream.IntStream;
 
 public class StringUtil {
@@ -57,5 +60,11 @@ public class StringUtil {
         int indexOfPlaceholderEnd = indexOfPlaceholderStart + searchString.length();
         String stringAfterPlaceholder = request.substring(indexOfPlaceholderEnd);
         return (stringBeforePlaceholder + null + stringAfterPlaceholder);
+    }
+
+    public static String generateCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        return sdf.format(Calendar.getInstance().getTime());
     }
 }
