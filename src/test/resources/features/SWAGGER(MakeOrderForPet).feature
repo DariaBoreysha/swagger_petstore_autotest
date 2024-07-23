@@ -32,7 +32,7 @@ Feature: [SWAGGER-4] Создание нового заказа
       | approved  | 200  | OK     |
       | delivered | 200  | OK     |
 
-  @SWAGGER-4.1 @positive
+  @SWAGGER-4.2 @negative
   Scenario Outline: Добавление записи о заказе с незаполненными полями
     Given формируем JSON на основе шаблона "makeOrderForPet.json" и сохраняем в Memory как "request_body"
       | field         | value |
