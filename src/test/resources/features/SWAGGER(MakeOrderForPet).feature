@@ -85,3 +85,29 @@ Feature: [SWAGGER-4] Создание нового заказа
       | placed    | 200  | OK     |
       | approved  | 200  | OK     |
       | delivered | 200  | OK     |
+
+
+  @SWAGGER-4.4 @negative
+  Scenario Outline: Превышение максимального валидного значения поля order_id
+    Given формируем JSON на основе шаблона "makeOrderForPet.json" и сохраняем в Memory как "request_body"
+      | field         | value                    |
+      | order_id      | GENERATE : invalid_id    |
+      | pet_entity_id | GENERATE : pet_entity_id |
+      | quantity      | GENERATE : quantity      |
+      | ship_date     | GENERATE : date          |
+      | status        | <status>                 |
+      | complete      | true                     |
+    When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/store/order" и сохраняем ответ в Memory как "response_entity"
+    Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+    And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
+    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
+      | field   | value                  |
+      | code    | <code>                 |
+      | message | something bad happened |
+      | type    | unknown                |
+
+    Examples:
+      | status    | code | phrase       |
+      | placed    | 500  | Server Error |
+      | approved  | 500  | Server Error |
+      | delivered | 500  | Server Error |
