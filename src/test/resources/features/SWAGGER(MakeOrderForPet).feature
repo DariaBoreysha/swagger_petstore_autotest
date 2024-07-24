@@ -70,7 +70,7 @@ Feature: [SWAGGER-4] Создание нового заказа
       | quantity      | GENERATE : quantity      |
       | ship_date     | GENERATE : date          |
       | status        | <status>                 |
-      | complete      | true                     |
+      | complete      | false                     |
     When отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/store/order" и сохраняем ответ в Memory как "response_entity"
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
     And извлекаем тело ответа из Memory: "response_entity", конвертируем в jsonNode и сохраняем в Memory как "response_as_jsonNode"
