@@ -49,7 +49,7 @@ public class Put {
     }
 
     private void logRequest(URI uri, Header[] allHeaders, String body) {
-        Log.log("POST request: " + System.lineSeparator()
+        Log.log("PUT request: " + System.lineSeparator()
                 + "URL: " + uri + System.lineSeparator()
                 + "headers: " + Arrays.toString(allHeaders) + System.lineSeparator()
                 + "body: " + body
