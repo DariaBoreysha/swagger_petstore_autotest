@@ -4,6 +4,7 @@ import exceptions.AtHttpClientException;
 import methods.Delete;
 import methods.Get;
 import methods.Post;
+import methods.Put;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 
@@ -15,11 +16,17 @@ public class HttpClient {
     private Delete methodDelete;
     private Post methodPost;
     private Get methodGet;
+    private Put methodPut;
 
     public HttpClient() {
         methodDelete = new Delete();
         methodPost = new Post();
         methodGet = new Get();
+        methodPut = new Put();
+    }
+
+    public Put methodPut() {
+        return methodPut;
     }
 
     public Get methodGet() {
