@@ -70,3 +70,38 @@ Feature: [SWAGGER-5] Обновление информации о питомце
       | code | phrase        |
       | 404  | Pet not found |
 
+  @SWAGGER-5.3 @negative
+  Scenario Outline: Обновление информации о питомце c незаполненными обязательными полями
+    Given формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
+      | field         | value                    |
+      | pet_entity_id | GENERATE : pet_entity_id |
+      | category_id   | GENERATE : id            |
+      | category_name | GENERATE : category_name |
+      | pet_name      | GENERATE : pet_name      |
+      | photourls     | GENERATE : photourls     |
+      | tag_id        | GENERATE : id            |
+      | tag_name      | GENERATE : tag_name      |
+      | status        | <status>                 |
+    And отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
+    And формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
+      | field         | value                    |
+      | pet_entity_id | MEMORY : pet_entity_id   |
+      | category_id   | GENERATE : id            |
+      | category_name | GENERATE : category_name |
+      | pet_name      | null                     |
+      | photourls     | null                     |
+      | tag_id        | GENERATE : id            |
+      | tag_name      | GENERATE : tag_name      |
+      | status        | available                |
+    When отправляем PUT запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
+    Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+    And извлекаем тело ответа из Memory: "response_entity", конвертируем в jsonNode и сохраняем в Memory как "json_node"
+    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
+      | field   | value    |
+      | code    | <code>   |
+      | message | <phrase> |
+      | type    | unknown  |
+
+    Examples:
+      | code | phrase               |
+      | 405  | Validation exception |
