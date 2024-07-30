@@ -56,7 +56,7 @@ Feature: [SWAGGER-4] Создание нового заказа
   Scenario Outline: Добавление записи о заказе с неуникальным id
     Given формируем JSON на основе шаблона "makeOrderForPet.json" и сохраняем в Memory как "request_body"
       | field         | value                    |
-      | order_id      | GENERATE : order_id             |
+      | order_id      | GENERATE : order_id      |
       | pet_entity_id | GENERATE : pet_entity_id |
       | quantity      | GENERATE : quantity      |
       | ship_date     | GENERATE : date          |
