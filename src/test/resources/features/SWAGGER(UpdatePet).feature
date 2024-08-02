@@ -44,7 +44,7 @@ Feature: [SWAGGER-5] Обновление информации о питомце
 
   @SWAGGER-5.2 @negative
   Scenario Outline: Обновление информации о несуществующем питомце
-    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "request_body"
+    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" c path параметром "pet_entity_id" и сохраняем ответ в Memory как "request_body"
       | variable      | value                    |
       | pet_entity_id | GENERATE : pet_entity_id |
     And формируем JSON на основе шаблона "addNewPet.json" и сохраняем в Memory как "request_body"
