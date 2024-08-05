@@ -9,7 +9,7 @@ public class TestDataGenerator {
         switch (valueType) {
             case "id", "pet_entity_id", "order_id":
                 return StringUtil.generateStringOfDigits(9223372036854775807L);
-            case "pet_name", "tag_name", "category_name", "invalid_pet_entity_id":
+            case "pet_name", "tag_name", "category_name", "invalid_pet_entity_id", "invalid_order_id":
                 return RandomStringUtils.random(5, true, false);
             case "photourls":
                 return StringUtil.generateStringArray();

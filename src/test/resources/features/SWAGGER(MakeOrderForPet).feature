@@ -6,9 +6,9 @@ Feature: [SWAGGER-4] Создание нового заказа
 
   @SWAGGER-4.1 @positive
   Scenario Outline: Добавление записи о заказе с уникальным id
-    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/store/order/" и сохраняем ответ в Memory как "delete_body"
-      | variable      | value               |
-      | pet_entity_id | GENERATE : order_id |
+    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/store/order/" c path параметром "order_id" и сохраняем ответ в Memory как "delete_body"
+      | variable | value               |
+      | order_id | GENERATE : order_id |
     And формируем JSON на основе шаблона "makeOrderForPet.json" и сохраняем в Memory как "request_body"
       | field         | value                    |
       | order_id      | MEMORY : order_id        |
