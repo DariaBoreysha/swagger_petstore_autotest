@@ -53,6 +53,6 @@ Feature: [SWAGGER-6] Удаление записи о заказе
       | type    | unknown  |
 
     Examples:
-      | code | phrase              | value                         |
-      | 400  | Invalid ID supplied |                               |
-      | 400  | Invalid ID supplied | GENERATE : "invalid_order_id" |
+      | code | phrase              | value                       |
+      | 400  | Invalid ID supplied |                             |
+      | 400  | Invalid ID supplied | GENERATE : invalid_order_id |
