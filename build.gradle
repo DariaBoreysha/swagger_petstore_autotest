@@ -44,9 +44,10 @@ task cucumber() {
         javaexec {
             main = "io.cucumber.core.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            def tags = getProperty("tags")
             args = [
                     '--glue', 'steps', 'src/test/resources/features',
-                    '--tags', Tags
+                    '--tags', tags
             ]
         }
     }

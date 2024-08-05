@@ -17,7 +17,7 @@ Feature: [SWAGGER-3] Удаление записи о питомце
       | tag_name      | GENERATE : tag_name      |
       | status        | available                |
     And отправляем POST запрос c телом из Memory: "request_body" на "https://petstore.swagger.io/v2/pet" и сохраняем ответ в Memory как "response_entity"
-    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "response_entity"
+    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" c path параметром "pet_entity_id" и сохраняем ответ в Memory как "response_entity"
       | variable      | value                  |
       | pet_entity_id | MEMORY : pet_entity_id |
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
@@ -27,17 +27,19 @@ Feature: [SWAGGER-3] Удаление записи о питомце
       | code    | 200                    |
       | message | MEMORY : pet_entity_id |
       | type    | unknown                |
+    And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet" с path параметром "pet_entity_id" и сохраняем тело ответа в Memory как "get_response"
+    And извлекаем ответ из Memory переменной : "get_response" и проверяем соответствие статус кода и поясняющей фразы значениям <codeGetCheck>, "<phraseGetCheck>"
 
     Examples:
-      | code | phrase |
-      | 200  | OK     |
+      | code | phrase | codeGetCheck | phraseGetCheck |
+      | 200  | OK     | 404          | Not Found      |
 
   @SWAGGER-3.2 @negative
   Scenario Outline: Удаление записи о несуществующем питомце
-    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "delete_body"
+    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" c path параметром "pet_entity_id" и сохраняем ответ в Memory как "delete_body"
       | variable      | value                    |
       | pet_entity_id | GENERATE : pet_entity_id |
-    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "response_entity"
+    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" c path параметром "pet_entity_id" и сохраняем ответ в Memory как "response_entity"
       | variable      | value                  |
       | pet_entity_id | MEMORY : pet_entity_id |
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
@@ -48,7 +50,7 @@ Feature: [SWAGGER-3] Удаление записи о питомце
 
   @SWAGGER-3.3 @negative
   Scenario Outline: Заполнение path параметра petId невалидным значением
-    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" и сохраняем ответ в Memory как "response_entity"
+    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet/" c path параметром "pet_entity_id" и сохраняем ответ в Memory как "response_entity"
       | variable      | value   |
       | pet_entity_id | <value> |
     Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
@@ -60,6 +62,6 @@ Feature: [SWAGGER-3] Удаление записи о питомце
       | type    | unknown  |
 
     Examples:
-      | code | phrase              | value                              |
-      | 400  | Invalid ID supplied |                                    |
-      | 400  | Invalid ID supplied | GENERATE : "invalid_pet_entity_id" |
+      | code | phrase              | value                            |
+      | 400  | Invalid ID supplied |                                  |
+      | 400  | Invalid ID supplied | GENERATE : invalid_pet_entity_id |
