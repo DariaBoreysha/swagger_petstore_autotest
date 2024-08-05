@@ -25,19 +25,12 @@ Feature: [SWAGGER-6] Удаление записи о заказе
       | code    | 200               |
       | message | MEMORY : order_id |
       | type    | unknown           |
-    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/store/order/" c path параметром "order_id" и сохраняем ответ в Memory как "response_entity"
-      | variable | value             |
-      | order_id | MEMORY : order_id |
-    And конвертируем ответ из Memory: "response_entity" в JsonNode и сохраняем как "json_node"
-    And извлекаем тело JSON из Memory переменной : "json_node" и проверяем соответствие фактических значений полей ожидаемым
-      | field   | value           |
-      | code    | 404             |
-      | message | Order Not Found |
-      | type    | unknown         |
+    And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/store/order/" с path параметром "order_id" и сохраняем тело ответа в Memory как "get_response"
+    And извлекаем ответ из Memory переменной : "get_response" и проверяем соответствие статус кода и поясняющей фразы значениям <codeGetCheck>, "<phraseGetCheck>"
 
     Examples:
-      | code | phrase |
-      | 200  | OK     |
+      | code | phrase | codeGetCheck | phraseGetCheck |
+      | 200  | OK     | 404          | Not Found      |
 
   @SWAGGER-6.2 @negative
   Scenario Outline: Заполнение path параметра orderId невалидным значением
@@ -56,3 +49,17 @@ Feature: [SWAGGER-6] Удаление записи о заказе
       | code | phrase              | value                       |
       | 400  | Invalid ID supplied |                             |
       | 400  | Invalid ID supplied | GENERATE : invalid_order_id |
+
+  @SWAGGER-3.3 @negative
+  Scenario Outline: Удаление записи о несуществующем заказе
+    Given отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/store/order/" c path параметром "order_id" и сохраняем ответ в Memory как "delete_body"
+      | variable | value               |
+      | order_id | GENERATE : order_id |
+    When отправляем DELETE запрос на "https://petstore.swagger.io" эндпойнт "/v2/store/order/" c path параметром "order_id" и сохраняем ответ в Memory как "response_entity"
+      | variable | value             |
+      | order_id | MEMORY : order_id |
+    Then извлекаем ответ из Memory переменной : "response_entity" и проверяем соответствие статус кода и поясняющей фразы значениям <code>, "<phrase>"
+
+    Examples:
+      | code | phrase    |
+      | 404  | Not Found |

@@ -27,10 +27,12 @@ Feature: [SWAGGER-3] Удаление записи о питомце
       | code    | 200                    |
       | message | MEMORY : pet_entity_id |
       | type    | unknown                |
+    And отправляем GET запрос на "https://petstore.swagger.io" эндпойнт "/v2/pet" с path параметром "pet_entity_id" и сохраняем тело ответа в Memory как "get_response"
+    And извлекаем ответ из Memory переменной : "get_response" и проверяем соответствие статус кода и поясняющей фразы значениям <codeGetCheck>, "<phraseGetCheck>"
 
     Examples:
-      | code | phrase |
-      | 200  | OK     |
+      | code | phrase | codeGetCheck | phraseGetCheck |
+      | 200  | OK     | 404          | Not Found      |
 
   @SWAGGER-3.2 @negative
   Scenario Outline: Удаление записи о несуществующем питомце
