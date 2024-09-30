@@ -7,7 +7,7 @@ import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
 import constants.Constants;
 import exceptions.AtJsonSchemaValidatorException;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 
 import java.io.FileInputStream;
 import java.io.IOException;
