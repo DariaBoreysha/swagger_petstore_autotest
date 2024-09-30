@@ -16,9 +16,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.16.1'
-    testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: '7.16.1'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.10.2'
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.18.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.18.1'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
     testImplementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.3'
     testImplementation 'com.networknt:json-schema-validator:1.4.0'
