@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.9.6'
 }
 
 group 'org.example'
@@ -15,14 +16,18 @@ repositories {
 }
 
 dependencies {
+     testImplementation 'io.cucumber:cucumber-java:7.18.1'
+    testImplementation 'io.cucumber:cucumber-junit:7.18.1'
+    
     testImplementation 'org.apache.httpcomponents:httpclient:4.5.14'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'io.cucumber:cucumber-java:7.18.1'
-    testImplementation 'io.cucumber:cucumber-junit:7.18.1'
     testImplementation 'org.assertj:assertj-core:3.25.3'
     testImplementation 'com.networknt:json-schema-validator:1.4.0'
     testImplementation  'commons-io:commons-io:2.16.1'
     testImplementation  'org.apache.commons:commons-lang3:3.12.0'
+
+    testImplementation 'io.qameta.allure:allure-junit4:2.28.1'
+    testImplementation 'io.qameta.allure:allure-java-commons:2.28.1'
 }
 
 tasks.test {
@@ -50,4 +55,8 @@ tasks.register('cucumber'){
             systemProperties System.properties
         }
     }
+}
+
+allure {
+    version = '2.9.0'
 }
