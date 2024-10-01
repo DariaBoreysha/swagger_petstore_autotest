@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "steps",
         plugin={"pretty"},
-        dryRun = false
+        dryRun = false,
+        tags="@Delete_pet_order"
 )
 public class TestRunner {
 
